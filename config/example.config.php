@@ -17,7 +17,7 @@ $locale = 'en';
 $title = 'pmsfopole';
 $favIcon = 'custom/headerimage.png';
 
-$headerName = 'PokéSquad';
+$headerName = 'pmsfopole';
 $headerImage = 'custom/headerimage.png';
 
 $footer = true;
