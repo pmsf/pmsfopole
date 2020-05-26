@@ -1,0 +1,56 @@
+body {
+  background-image: url(../../static/images/bg2.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+tbody {
+  background-color: white;
+}
+.card-header {
+  background-color: #317dcb !important;
+}
+.text-muted {
+  color: #000000!important;
+}
+
+a.neutral:hover {
+  background-color:#dddddd;
+}
+a.neutral:hover * {
+  color:#FFF;
+}
+
+a.valor i,.valor h4.list-group-item-heading {
+  color: #f71208;
+}
+a.valor:hover {
+  background-color:#dd4b39;
+}
+a.valor:hover * {
+  color:#FFF;
+}
+
+a.mystic i,.mystic h4.list-group-item-heading {
+  color:#0076f3;
+}
+a.mystic:hover {
+  background-color:#3b5998;
+}
+a.mystic:hover * {
+  color:#FFF;
+}
+
+a.instinct i,.instinct h4.list-group-item-heading {
+  color:#ffd200;
+}
+a.instinct:hover {
+  background-color:#ffd20073;
+}
+a.instinct:hover * {
+  color:black;
+}
+
+
+

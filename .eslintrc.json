@@ -1,0 +1,49 @@
+{
+  "extends": "standard",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": false
+    },
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
+  "rules": {
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "ignore"
+      }
+    ],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 2
+      }
+    ]
+  },
+  "env": {
+    "browser": true,
+    "jquery": true
+  },
+  "globals": {
+    "token": true,
+    "getPage": true,
+    "pokemonPage": true,
+    "raidPage": true,
+    "rewardPage": true,
+    "invasionPage": true,
+    "shinyPage": true,
+    "pokemonIconPath": true,
+    "itemIconPath": true,
+    "eggIconPath": true
+  }
+}

@@ -1,0 +1,6 @@
+{
+    "require": {
+        "easybiblabs/oauth2-client-php": "^4.1",
+        "restcord/restcord": "^0.3.1"
+    }
+}

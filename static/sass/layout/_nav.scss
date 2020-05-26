@@ -1,0 +1,28 @@
+a.dropdown-item:hover {
+  background-color: #dadada78;
+  background-image: none;
+}
+
+.dropdown-menu.navbar-dropdown.scrollable-menu.show {
+  max-height: 80vh;
+  overflow-x: hidden;
+}
+
+.language-dropdown {
+  top: 46px;
+  left: -95px;
+}
+
+.navbar-dropdown {
+  top: 46px;
+  left: -20px;
+}
+
+a.navbar-brand {
+  left: 70px;
+  position: absolute;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}

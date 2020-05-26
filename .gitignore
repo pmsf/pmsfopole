@@ -1,0 +1,15 @@
+#PMSFopole
+/.sass-cache/
+/node_modules/
+config/*
+!config/example.config.php
+!config/example.access-config.php
+!config/default.php
+/static/dist/
+package-lock.json
+index.php
+static/.DS_Store
+vendor/*
+composer.lock
+custom/css/custom.css
+custom/sprite/*

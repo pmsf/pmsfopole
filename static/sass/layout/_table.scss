@@ -1,0 +1,22 @@
+@media only screen and (max-width: 560px) {
+  tr {
+    font-size: 12px !important;
+  }
+}
+
+.table {
+  text-align: center;
+}
+
+td, th {
+  vertical-align: middle !important;
+  font-weight: 700;
+}
+
+div#raidTable_filter, div#rewardTable_filter {
+  margin-right:2%;
+}
+
+.tableIcon {
+  height: 60px;
+}
