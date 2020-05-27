@@ -206,18 +206,22 @@ function processRewards(i, item) {
     item['quest_pokemon_form'] = '00'
   }
   var reward = ''
+  var type = ''
   if (item['quest_pokemon_id'] > 0) {
     reward = '<img src="' + pokemonIconPath + 'pokemon_icon_' + item['quest_pokemon_id'] + '_' + item['quest_pokemon_form'] + '.png" class="tableIcon">' +
     '<br>' + item['name']
+    type = i8ln('Pokémon')
   } else if (item['quest_item_id'] > 0) {
     reward = '<img src="' + itemIconPath + 'reward_' + item['quest_item_id'] + '_' + item['quest_reward_amount'] + '.png" class="tableIcon">' +
     '<br>' + item['name']
+    type = i8ln('Item')
   } else {
     reward = '<img src="' + itemIconPath + 'reward_stardust_' + item['quest_reward_amount'] + '.png" class="tableIcon">' +
     '<br>' + item['name']
+    type = i8ln('Stardust')
   }
   rewardTable.row.add([
-    item['type'],
+    type,
     reward,
     item['count'],
     item['percentage']

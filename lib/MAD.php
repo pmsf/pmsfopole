@@ -155,15 +155,12 @@ class MAD extends Scanner
         $questReward["percentage"] = round(100 / $total["total"] * $reward["count"], 3) . '%';
 
         if ($reward["quest_pokemon_id"] > 0) {
-          $questReward["type"] = i8ln('Pokémon');
           $questReward["name"] = i8ln($this->pokedex[$reward['quest_pokemon_id']]["name"]);
           $questReward["quest_reward_amount"] = null;
         } elseif ($reward["quest_item_id"] > 0) {
-          $questReward["type"] = i8ln('Item');
           $questReward["name"] = i8ln($this->itemdex[$reward['quest_item_id']]["name"]);
           $questReward["quest_reward_amount"] = $reward["quest_item_amount"];
         } else {
-          $questReward["type"] = i8ln('Stardust');
           $questReward["name"] = i8ln('Stardust');
           $questReward["quest_reward_amount"] = $reward["quest_dust_amount"];
         }
