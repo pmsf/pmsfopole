@@ -80,7 +80,7 @@ class MAD extends Scanner
         SELECT
           COUNT(*) AS total,
           SUM(last_scanned IS NOT NULL) AS found,
-          SUM(last_scanned IS NULL) AS missing,
+          SUM(last_scanned IS NULL) AS missing
         FROM trs_spawn"
       )->fetch();
 
