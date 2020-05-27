@@ -2,7 +2,7 @@
 <footer class="mainfooter" role="contentinfo">
   <div class="footer-middle">
     <div class="container">
-      <?php if ($discordUrl !== '' || $telegramUrl !== '' || $paypalUrl !== '' || $patreonUrl !== '') { ?>
+      <?php if (($discordUrl !== '' || $telegramUrl !== '' || $paypalUrl !== '' || $patreonUrl !== '') && $footerIcons) { ?>
         <div class="row">
           <div class="col-md-12 text-center">
             <h4 style="position:relative;top:-5px;"><?php echo i8ln('Follow Us'); ?></h4>

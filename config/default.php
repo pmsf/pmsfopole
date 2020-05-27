@@ -33,6 +33,7 @@ $headerName = 'pmsfopole';
 $headerImage = 'custom/headerimage.png';
 
 $footer = true;
+$footerIcons = true;
 
 
 /* Urls */
