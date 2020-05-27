@@ -6,7 +6,7 @@
         <div class='row'>
           <div class='col-md-3'>
             <div class='list-group'>
-              <a class='list-group-item'>
+              <a class='list-group-item' href='?page=pokemon' style='color:black;'>
                 <h3 class='pull-right'><img src='static/images/pokeball.png' width='64' height='64' /></h3>
                 <h4 class='list-group-item-heading pokemon-count'><?php echo i8ln('loading...'); ?> <i class="fas fa-spinner fa-spin"></i></h4>
                 <p class='list-group-item-text'><?php echo i8ln('Pokémon'); ?></p>
@@ -24,7 +24,7 @@
           </div>
           <div class='col-md-3'>
             <div class='list-group'>
-              <a class='list-group-item'>
+              <a class='list-group-item' href='?page=raids' style='color:black;'>
                 <h3 class='pull-right'><img src='static/images/raid.png' width='64' height='64' /></h3>
                 <h4 class='list-group-item-heading raid-count'><?php echo i8ln('loading...'); ?> <i class="fas fa-spinner fa-spin"></i></h4>
                 <p class='list-group-item-text'><?php echo i8ln('Raids'); ?></p>
@@ -100,7 +100,7 @@
         <div class='row'>
           <div class='col-md-4 p-1'>
             <div class='list-group'>
-              <a class='list-group-item'>
+              <a class='list-group-item' href='?page=rewards' style='color:black;'>
                 <h3 class='pull-right'><img src='static/images/quest.png' width='64' height='64' /></h3>
                 <h4 class='list-group-item-heading quest-count'><?php echo i8ln('Loading...'); ?> <i class="fas fa-spinner fa-spin"></i></h4>
                 <p class='list-group-item-text'><?php echo i8ln('Field Research'); ?></p>
@@ -109,7 +109,7 @@
           </div>
           <div class='col-md-4 p-1'>
             <div class='list-group'>
-              <a class='list-group-item'>
+              <a class='list-group-item' href='?page=invasion' style='color:black;'>
                 <h3 class='pull-right'><img src='static/images/rocket.png' width='64' height='64' /></h3>
                 <h4 class='list-group-item-heading rocket-count'><?php echo i8ln('Loading...'); ?> <i class="fas fa-spinner fa-spin"></i></h4>
                 <p class='list-group-item-text'><?php echo i8ln('Invasions'); ?></p>
