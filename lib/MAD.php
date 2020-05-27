@@ -137,11 +137,12 @@ class MAD extends Scanner
           COUNT(GUID) as count,
           quest_item_id, 
           quest_pokemon_id, 
-          json_extract(json_extract(`quest_reward`,'$[*].info.form_id'),'$[0]') AS quest_pokemon_form,
-          json_extract(json_extract(`quest_reward`,'$[*].info.amount'),'$[0]') AS quest_reward_amount
+          quest_pokemon_form_id AS quest_pokemon_form,
+          quest_item_amount AS quest_item_amount,
+          quest_stardust AS quest_dust_amount
         FROM trs_quest
         WHERE quest_timestamp >= UNIX_TIMESTAMP(CURDATE())
-        GROUP BY quest_reward_type, quest_item_id, quest_reward_amount, quest_pokemon_id, quest_pokemon_form_id"
+        GROUP BY quest_reward_type, quest_item_id, quest_reward_amount, quest_stardust, quest_item_amount, quest_pokemon_id, quest_pokemon_form_id"
       );
       $total = $db->query("SELECT COUNT(*) AS total FROM trs_quest WHERE quest_timestamp >= UNIX_TIMESTAMP(CURDATE())")->fetch();
 
@@ -150,19 +151,21 @@ class MAD extends Scanner
         $questReward["quest_pokemon_id"] = $reward["quest_pokemon_id"];
         $questReward["quest_pokemon_form"] = $reward["quest_pokemon_form"];
         $questReward["quest_item_id"] = $reward["quest_item_id"];
-        $questReward["quest_reward_amount"] = $reward["quest_reward_amount"];
         $questReward["count"] = $reward["count"];
         $questReward["percentage"] = round(100 / $total["total"] * $reward["count"], 3) . '%';
 
         if ($reward["quest_pokemon_id"] > 0) {
           $questReward["type"] = i8ln('Pokémon');
           $questReward["name"] = i8ln($this->pokedex[$reward['quest_pokemon_id']]["name"]);
+          $questReward["quest_reward_amount"] = null;
         } elseif ($reward["quest_item_id"] > 0) {
           $questReward["type"] = i8ln('Item');
           $questReward["name"] = i8ln($this->itemdex[$reward['quest_item_id']]["name"]);
+          $questReward["quest_reward_amount"] = $reward["quest_item_amount"];
         } else {
           $questReward["type"] = i8ln('Stardust');
           $questReward["name"] = i8ln('Stardust');
+          $questReward["quest_reward_amount"] = $reward["quest_dust_amount"];
         }
         $data[] = $questReward;
       }
