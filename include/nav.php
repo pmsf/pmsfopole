@@ -101,7 +101,7 @@
         </li>
       </ul>
     </div>
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href=".">
       <img src="<?php echo $headerImage; ?>" style="height:35px;"> <?php echo $headerName; ?>
     </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
