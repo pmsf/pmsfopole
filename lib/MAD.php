@@ -215,7 +215,7 @@ class MAD extends Scanner
         SELECT 
           COUNT(*) AS total
         FROM pokestop
-        WHERE incident_expire_timestamp > UNIX_TIMESTAMP() AND incident_grunt_type IS NOT NULL"
+        WHERE incident_expire_timestamp > UTC_TIMESTAMP() AND incident_grunt_type IS NOT NULL"
       )->fetch();
 
       $data = array();
