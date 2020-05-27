@@ -277,7 +277,7 @@ function processPokemon(i, item) {
   var types = item['pokemon_types']
   var typeDisplay = ''
   $.each(types, function (index, type) {
-    typeDisplay += type['type'] + '<br>'
+    typeDisplay += i8ln(type['type']) + '<br>'
   })
   pokemonTable.row.add([
     item['pokemon_id'],
