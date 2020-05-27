@@ -36,6 +36,7 @@
   },
   "globals": {
     "token": true,
+    "queryDelay": true,
     "getPage": true,
     "pokemonPage": true,
     "raidPage": true,

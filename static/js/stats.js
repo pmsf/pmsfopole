@@ -1,3 +1,9 @@
+var language = document.documentElement.lang === '' ? 'en' : document.documentElement.lang
+var i8lnDictionary = {}
+var languageLookups = 0
+var languageLookupThreshold = 3
+
+
 if (raidPage && getPage === 'raids') {
   var raidTable = $('#raidTable').DataTable({
     paging: false,
@@ -13,7 +19,8 @@ if (raidPage && getPage === 'raids') {
     },
     stateDuration: 0,
     language: {
-      emptyTable: 'Loading... <i class="fas fa-spinner fa-spin"></i>'
+      search: i8ln('Search:'),
+      emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>'
     }
   })
 }
@@ -33,7 +40,8 @@ if (rewardPage && getPage === 'rewards') {
     },
     stateDuration: 0,
     language: {
-      emptyTable: 'Loading... <i class="fas fa-spinner fa-spin"></i>'
+      search: i8ln('Search:'),
+      emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>'
     }
   })
 }
@@ -53,7 +61,8 @@ if (shinyPage && getPage === 'shiny') {
     },
     stateDuration: 0,
     language: {
-      emptyTable: 'Loading... <i class="fas fa-spinner fa-spin"></i>'
+      search: i8ln('Search:'),
+      emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>'
     }
   })
 }
@@ -73,7 +82,8 @@ if (invasionPage && getPage === 'invasion') {
     },
     stateDuration: 0,
     language: {
-      emptyTable: 'Loading... <i class="fas fa-spinner fa-spin"></i>'
+      search: i8ln('Search:'),
+      emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>'
     }
   })
 }
@@ -93,7 +103,8 @@ if (pokemonPage && getPage === 'pokemon') {
     },
     stateDuration: 0,
     language: {
-      emptyTable: 'Loading... <i class="fas fa-spinner fa-spin"></i>'
+      search: i8ln('Search:'),
+      emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>'
     }
   })
 }
@@ -306,4 +317,27 @@ function updateStats() {
       $.each(result.pokemon, processPokemon)
     }
   })
+}
+
+function i8ln(word) {
+  if ($.isEmptyObject(i8lnDictionary) && language !== 'en' && languageLookups < languageLookupThreshold) {
+    $.ajax({
+      url: 'static/dist/locales/' + language + '.min.json',
+      dataType: 'json',
+      async: false,
+      success: function success(data) {
+        i8lnDictionary = data
+      },
+      error: function error(jqXHR, status, _error) {
+        console.log('Error loading i8ln dictionary: ' + _error)
+        languageLookups++
+      }
+    })
+  }
+  if (word in i8lnDictionary) {
+    return i8lnDictionary[word]
+  } else {
+    // Word doesn't exist in dictionary return it as is
+    return word
+  }
 }
