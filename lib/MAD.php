@@ -142,7 +142,7 @@ class MAD extends Scanner
           quest_stardust AS quest_dust_amount
         FROM trs_quest
         WHERE quest_timestamp >= UNIX_TIMESTAMP(CURDATE())
-        GROUP BY quest_reward_type, quest_item_id, quest_reward_amount, quest_stardust, quest_item_amount, quest_pokemon_id, quest_pokemon_form_id"
+        GROUP BY quest_reward_type, quest_item_id, quest_stardust, quest_item_amount, quest_pokemon_id, quest_pokemon_form_id"
       );
       $total = $db->query("SELECT COUNT(*) AS total FROM trs_quest WHERE quest_timestamp >= UNIX_TIMESTAMP(CURDATE())")->fetch();
 
