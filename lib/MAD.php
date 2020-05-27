@@ -208,14 +208,14 @@ class MAD extends Scanner
           COUNT(*) AS count,
           incident_grunt_type AS grunt_type
         FROM pokestop
-        WHERE incident_expire_timestamp > UTC_TIMESTAMP()
+        WHERE incident_expiration > UTC_TIMESTAMP()
         GROUP BY incident_grunt_type"
       );
       $total = $db->query("
         SELECT 
           COUNT(*) AS total
         FROM pokestop
-        WHERE incident_expire_timestamp > UTC_TIMESTAMP() AND incident_grunt_type IS NOT NULL"
+        WHERE incident_expiration > UTC_TIMESTAMP() AND incident_grunt_type IS NOT NULL"
       )->fetch();
 
       $data = array();
