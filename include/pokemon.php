@@ -7,6 +7,7 @@
       <tr>
         <th>#</th>
         <th>Type</th>
+        <th><?php echo i8ln('Type'); ?></th>
         <th><?php echo i8ln('Pokémon'); ?></th>
         <th><?php echo i8ln('Count'); ?></th>
         <th>%</th>
