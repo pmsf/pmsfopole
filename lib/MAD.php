@@ -79,6 +79,7 @@ class MAD extends Scanner
       global $db, $geofences;
 
       $whereGeofenceSQL = '';
+      $andGeofenceSQL = '';
       if ($selectedGeofence) {
         $geofence = array_search($selectedGeofence, $geofences);
         if ($geofence !== 'All') {
