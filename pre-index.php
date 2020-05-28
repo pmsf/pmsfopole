@@ -119,6 +119,7 @@ if (!empty($_GET['page'])) {
     var rewardPage = '<?php echo $rewardPage ?>';
     var invasionPage = '<?php echo $invasionPage ?>';
     var shinyPage = '<?php echo $shinyPage ?>';
+    var geofenceDefault = '<?php echo $geofenceDefault ?>';
   </script>
   <script src="static/dist/js/stats.common.min.js"></script>
   <script type="text/javascript" src="static/dist/js/stats.min.js"></script>

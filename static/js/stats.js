@@ -295,7 +295,9 @@ function processPokemon(i, item) {
 }
 
 function initSettings() {
-  $('#geofence').val(Store.get('geofence'))
+  if (Store.get('geofence')) {
+    $('#geofence').val(Store.get('geofence'))
+  }
 }
 
 function updateStats() {
