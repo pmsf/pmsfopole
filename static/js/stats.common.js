@@ -48,7 +48,7 @@ var StoreTypes = {
 }
 var StoreOptions = {
   'geofence': {
-    default: defaultGeofence,
+    default: geofenceDefault,
     type: StoreTypes.String
   }
 }
