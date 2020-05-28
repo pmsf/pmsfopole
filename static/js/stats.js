@@ -295,9 +295,7 @@ function processPokemon(i, item) {
 }
 
 function initSettings() {
-  //if ('geofence' in localStorage) {
-    $('#geofence').val(Store.get('geofence'))
-  //}
+  $('#geofence').val(Store.get('geofence'))
 }
 
 function updateStats() {
