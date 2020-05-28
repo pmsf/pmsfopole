@@ -45,6 +45,7 @@
     "shinyPage": true,
     "pokemonIconPath": true,
     "itemIconPath": true,
-    "eggIconPath": true
+    "eggIconPath": true,
+    "Store": true
   }
 }
