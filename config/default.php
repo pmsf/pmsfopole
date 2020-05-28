@@ -72,8 +72,9 @@ $shinyPage = false;   // Does not work for mad yet.
 
 
 /* Geofences */
+$geofenceDefault = 'All Areas';
 $geofences = [
-  "All" => "All",
+  "All" => "All Areas",
 
   "lat1 lon1,
    lat2 lon2,
