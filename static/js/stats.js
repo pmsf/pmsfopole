@@ -358,5 +358,6 @@ $(function () {
   $('#geofence').change(function () {
     var geofence = this.value
     Store.set('geofence', geofence)
+    updateStats()
   })
 })
