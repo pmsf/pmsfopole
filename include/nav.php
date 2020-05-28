@@ -122,6 +122,10 @@
             <a class="dropdown-item" href="?lang=pl">
               <img src="static/images/flag-pl.png" style="height:20px;width:30px"> <?php echo i8ln('Polish'); ?>
             </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="?lang=sv">
+              <img src="static/images/flag-sv.png" style="height:20px;width:30px"> <?php echo i8ln('Swedish'); ?>
+            </a>
           </div>
         </li>
       </ul>

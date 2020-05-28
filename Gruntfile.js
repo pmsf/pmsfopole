@@ -58,7 +58,8 @@ module.exports = function (grunt) {
                     'static/dist/data/items.min.json': 'static/data/items.json',
                     'static/dist/data/grunttype.min.json': 'static/data/grunttype.json',
                     'static/dist/locales/de.min.json': 'static/locales/de.json',
-                    'static/dist/locales/pl.min.json': 'static/locales/pl.json'
+                    'static/dist/locales/pl.min.json': 'static/locales/pl.json',
+                    'static/dist/locales/sv.min.json': 'static/locales/sv.json'
                 }
             }
         },
