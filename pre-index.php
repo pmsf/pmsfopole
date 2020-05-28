@@ -77,7 +77,19 @@ if (!empty($_GET['page'])) {
       $user = explode("#", $_SESSION['user']->user);
       echo '<h3 class="page-header text-center">' . i8ln('Welcome') . ' ' . $user[0] . '</h3>';
     }
-
+  ?>
+  <br>
+  <center>
+    <select id="geofence" class="select-css">
+      <?php
+        foreach($geofences as $key => $value) {
+          echo '<option value="' . $value . '">' . $value . '</option>';
+        }
+      ?>
+    </select>
+  </center>
+  <br>
+  <?php
     /* Include Page */
     include($include);
 
@@ -108,6 +120,7 @@ if (!empty($_GET['page'])) {
     var invasionPage = '<?php echo $invasionPage ?>';
     var shinyPage = '<?php echo $shinyPage ?>';
   </script>
+  <script src="static/dist/js/stats.common.min.js"></script>
   <script type="text/javascript" src="static/dist/js/stats.min.js"></script>
 </body>
 </html>

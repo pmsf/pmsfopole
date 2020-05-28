@@ -109,20 +109,22 @@ if (pokemonPage && getPage === 'pokemon') {
   })
 }
 
-
+initSettings()
 updateStats()
 window.setInterval(updateStats, queryDelay * 1000)
 
-
 var rawDataIsLoading = false
 function loadRawData() {
+  var geofence = Store.get('geofence')
+
   return $.ajax({
     url: 'raw_data',
     type: 'POST',
     timeout: 7500,
     data: {
       token: token,
-      getPage: getPage
+      getPage: getPage,
+      geofence: geofence
     },
     cache: false,
     dataType: 'json',
@@ -292,6 +294,12 @@ function processPokemon(i, item) {
   ]).draw(false)
 }
 
+function initSettings() {
+  //if ('geofence' in localStorage) {
+    $('#geofence').val(Store.get('geofence'))
+  //}
+}
+
 function updateStats() {
   loadRawData().done(function (result) {
     if (getPage === 'overview') {
@@ -345,3 +353,10 @@ function i8ln(word) {
     return word
   }
 }
+
+$(function () {
+  $('#geofence').change(function () {
+    var geofence = this.value
+    Store.set('geofence', geofence)
+  })
+})

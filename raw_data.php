@@ -20,47 +20,48 @@ if (strtolower($backend) === "rdm") {
 }
 
 $getPage = !empty($_POST['getPage']) ? $_POST['getPage'] : false;
+$geofence = !empty($_POST['geofence']) ? $_POST['geofence'] : false;
 
 $debug['1_before_functions'] = microtime(true) - $timing['start'];
 
 $data = array();
 
 if ($getPage && $getPage === 'overview') {
-  $data['overview'] = $scanner->query_overview();
+  $data['overview'] = $scanner->query_overview($geofence);
   $debug['2_after_overview'] = microtime(true) - $timing['start'];
 
-  $data['teams'] = $scanner->query_teams();
+  $data['teams'] = $scanner->query_teams($geofence);
   $debug['3_after_teams'] = microtime(true) - $timing['start'];
 
-  $data['pokestops'] = $scanner->query_pokestops();
+  $data['pokestops'] = $scanner->query_pokestops($geofence);
   $debug['4_after_pokestops'] = microtime(true) - $timing['start'];
 
-  $data['spawnpoints'] = $scanner->query_spawnpoints();
+  $data['spawnpoints'] = $scanner->query_spawnpoints($geofence);
   $debug['5_after_spawnpoints'] = microtime(true) - $timing['start'];
 }
 
 if ($getPage && $getPage === 'pokemon') {
-  $data['pokemon'] = $scanner->query_pokemon();
+  $data['pokemon'] = $scanner->query_pokemon($geofence);
   $debug['2_after_pokemon'] = microtime(true) - $timing['start'];
 }
 
 if ($getPage && $getPage === 'raids') {
-  $data['raids'] = $scanner->query_raids();
+  $data['raids'] = $scanner->query_raids($geofence);
   $debug['2_after_raids'] = microtime(true) - $timing['start'];
 }
 
 if ($getPage && $getPage === 'rewards') {
-  $data['rewards'] = $scanner->query_rewards();
+  $data['rewards'] = $scanner->query_rewards($geofence);
   $debug['2_after_rewards'] = microtime(true) - $timing['start'];
 }
 
 if ($getPage && $getPage === 'shiny') {
-  $data['shiny'] = $scanner->query_shiny();
+  $data['shiny'] = $scanner->query_shiny($geofence);
   $debug['2_after_shiny'] = microtime(true) - $timing['start'];
 }
 
 if ($getPage && $getPage === 'invasion') {
-  $data['invasion'] = $scanner->query_invasions();
+  $data['invasion'] = $scanner->query_invasions($geofence);
   $debug['2_after_invasion'] = microtime(true) - $timing['start'];
 }
 
