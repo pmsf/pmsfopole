@@ -128,7 +128,7 @@
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="?lang=pt_br">
-              <img src="static/images/flag-pt_br.png" style="height:20px;width:30px"> <?php echo i8ln('Portugues Brasil'); ?>
+              <img src="static/images/flag-pt_br.png" style="height:20px;width:30px"> <?php echo i8ln('Português BR'); ?>
             </a>
           </div>
         </li>
