@@ -5,7 +5,7 @@
   <table id="pokemonTable" class="table table-striped table-bordered" style="width:100%;">
     <thead class="thead-dark">
       <tr>
-        <th>#</th>
+        <th><?php echo i8ln('#'); ?></th>
         <th><?php echo i8ln('Type'); ?></th>
         <th><?php echo i8ln('Pokémon'); ?></th>
         <th><?php echo i8ln('Count'); ?></th>
