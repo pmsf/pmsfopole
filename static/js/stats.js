@@ -119,7 +119,7 @@ function loadRawData() {
   return $.ajax({
     url: 'raw_data',
     type: 'POST',
-    timeout: 7500,
+    timeout: 300000,
     data: {
       token: token,
       getPage: getPage
