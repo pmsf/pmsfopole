@@ -109,9 +109,33 @@ if (pokemonPage && getPage === 'pokemon') {
   })
 }
 
+if (nestPage && getPage === 'nest') {
+  var nestTable = $('#nestTable').DataTable({
+    paging: true,
+    searching: true,
+    info: true,
+    responsive: false,
+    stateSave: true,
+    stateSaveCallback: function (settings, data) {
+      localStorage.setItem('DataTables_' + settings.sInstance, JSON.stringify(data))
+    },
+    stateLoadCallback: function (settings) {
+      return JSON.parse(localStorage.getItem('DataTables_' + settings.sInstance))
+    },
+    stateDuration: 0,
+    language: {
+      search: i8ln('Search:'),
+      emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>'
+    }
+  })
+}
+
 initSettings()
 updateStats()
-window.setInterval(updateStats, queryDelay * 1000)
+
+if (getPage !== 'nest') {
+  window.setInterval(updateStats, queryDelay * 1000)
+}
 
 function loadRawData() {
   var geofence = Store.get('geofence')
@@ -293,6 +317,25 @@ function processPokemon(i, item) {
   ]).draw(false)
 }
 
+function processNests(i, item) {
+  var id = ''
+  if (item['pokemon_id'] <= 9) {
+    id = '00' + item['pokemon_id']
+  } else if (item['pokemon_id'] <= 99) {
+    id = '0' + item['pokemon_id']
+  } else {
+    id = item['pokemon_id']
+  }
+  var pokemon = '<img src="' + pokemonIconPath + 'pokemon_icon_' + id + '_00.png" class="tableIcon"><br>' + item['name']
+  var nestName = '<a href="https://maps.google.com/maps?q=' + item['lat'] + ', ' + item['lon'] + '" target="_blank" style="color:#212529;">' + item['nest_name'] + '</a>';
+
+  nestTable.row.add([
+    pokemon,
+    nestName,
+    item['avg']
+  ]).draw(false)
+}
+
 function initSettings() {
   if (Store.get('geofence')) {
     $('#geofence-button').html(Store.get('geofence'))
@@ -308,24 +351,28 @@ function updateStats() {
       $.each(result.spawnpoints, processSpawnpoints)
     }
     if (raidPage && getPage === 'raids') {
-      raidTable.clear()
+      raidTable.clear().draw()
       $.each(result.raids, processRaids)
     }
     if (rewardPage && getPage === 'rewards') {
-      rewardTable.clear()
+      rewardTable.clear().draw()
       $.each(result.rewards, processRewards)
     }
     if (shinyPage && getPage === 'shiny') {
-      shinyTable.clear()
+      shinyTable.clear().draw()
       $.each(result.shiny, processShiny)
     }
     if (invasionPage && getPage === 'invasion') {
-      invasionTable.clear()
+      invasionTable.clear().draw()
       $.each(result.invasion, processInvasions)
     }
     if (pokemonPage && getPage === 'pokemon') {
-      pokemonTable.clear()
+      pokemonTable.clear().draw()
       $.each(result.pokemon, processPokemon)
+    }
+    if (nestPage && getPage === 'nest') {
+      nestTable.clear().draw()
+      $.each(result.nest, processNests)
     }
   })
 }

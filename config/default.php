@@ -12,6 +12,7 @@ require_once(__DIR__ . '/../utils.php');
 $libs[] = "Scanner.php";
 $libs[] = "RDM.php";
 $libs[] = "MAD.php";
+$libs[] = "Manual.php";
 
 foreach ($libs as $file) {
   include(__DIR__ . '/../lib/' . $file);
@@ -70,6 +71,10 @@ $rewardPage = true;
 $invasionPage = true;
 $shinyPage = false;   // Does not work for mad yet.
 
+/* Nest Page */
+$nestPage = true;
+$minNestAvg = 2; // 0 to disable
+$unknownParkName = false; // enable/disable nests with unknown park names
 
 /* Geofences */
 $geofenceDefault = 'All Areas';
