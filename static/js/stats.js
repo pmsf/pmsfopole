@@ -125,7 +125,13 @@ if (nestPage && getPage === 'nest') {
     stateDuration: 0,
     language: {
       search: i8ln('Search:'),
-      emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>'
+      emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>',
+      info: i8ln('Showing') + ' _START_ ' + i8ln('to') + ' _END_ ' + i8ln('of') + ' _TOTAL_ ' + i8ln('entries'),
+      lengthMenu: i8ln('Show') + ' _MENU_ ' + i8ln('entries'),
+      paginate: {
+        next: i8ln('Next'),
+        previous: i8ln('Previous')
+      }
     }
   })
 }
@@ -135,6 +141,8 @@ updateStats()
 
 if (getPage !== 'nest') {
   window.setInterval(updateStats, queryDelay * 1000)
+} else {
+  window.setInterval(nestMigrationTimer, 1000)
 }
 
 function loadRawData() {
@@ -327,7 +335,7 @@ function processNests(i, item) {
     id = item['pokemon_id']
   }
   var pokemon = '<img src="' + pokemonIconPath + 'pokemon_icon_' + id + '_00.png" class="tableIcon"><br>' + item['name']
-  var nestName = '<a href="https://maps.google.com/maps?q=' + item['lat'] + ', ' + item['lon'] + '" target="_blank" style="color:#212529;">' + item['nest_name'] + '</a>';
+  var nestName = '<a href="https://maps.google.com/maps?q=' + item['lat'] + ', ' + item['lon'] + '" target="_blank" style="color:#212529;">' + item['nest_name'] + '</a>'
 
   nestTable.row.add([
     pokemon,
@@ -398,6 +406,41 @@ function i8ln(word) {
     // Word doesn't exist in dictionary return it as is
     return word
   }
+}
+
+
+function nestMigrationTimer() {
+  var migrationDate = new Date('2020-06-11T00:00:00Z')
+  migrationDate = (Date.parse(migrationDate) / 1000)
+
+  var now = new Date()
+  now = (Date.parse(now) / 1000)
+
+  var timeLeft = migrationDate - now
+
+  while (timeLeft < 0) {
+    timeLeft = timeLeft + 1209600
+  }
+
+  var days = Math.floor(timeLeft / 86400)
+  var hours = Math.floor((timeLeft - (days * 86400)) / 3600)
+  var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600)) / 60)
+  var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)))
+
+  if (hours < '10') {
+    hours = '0' + hours
+  }
+  if (minutes < '10') {
+    minutes = '0' + minutes
+  }
+  if (seconds < '10') {
+    seconds = '0' + seconds
+  }
+
+  $('#days').html(days + '<span>' + i8ln('Days') + '</span>')
+  $('#hours').html(hours + '<span>' + i8ln('Hours') + '</span>')
+  $('#minutes').html(minutes + '<span>' + i8ln('Minutes') + '</span>')
+  $('#seconds').html(seconds + '<span>' + i8ln('Seconds') + '</span>')
 }
 
 $(function () {

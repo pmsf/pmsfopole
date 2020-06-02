@@ -1,0 +1,32 @@
+#timer {
+  margin-top: 15px;
+}
+
+#days, #hours, #minutes, #seconds {
+  display: inline-block;
+  line-height: 1;
+  padding: 15px;
+  font-size: 40px;
+}
+
+span {
+  display: block;
+  font-size: 15px;
+}
+
+#days {
+  font-size: 38px;
+  color: #db4844;
+}
+#hours {
+  font-size: 38px;
+  color: #f07c22;
+}
+#minutes {
+  font-size: 38px;
+  color: #f6da74;
+}
+#seconds {
+  font-size: 38px;
+  color: #abcd58;
+}

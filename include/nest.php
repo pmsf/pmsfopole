@@ -1,13 +1,21 @@
 <?php if ($nestPage) { ?>
+
+  <div id="timer" class="text-center">
+    <div id="days"></div>
+    <div id="hours"></div>
+    <div id="minutes"></div>
+    <div id="seconds"></div>
+    <h6><?php echo i8ln('Until the next Pokémon GO nest migration.'); ?></h6>
+  </div>
   <br>
-  <h4 class="text-center"><?php echo i8ln('Current Nests'); ?></h4>
+
   <!-- Nest table -->
   <table id="nestTable" class="table table-striped table-bordered" style="width:100%;">
     <thead class="thead-dark">
       <tr>
         <th><?php echo i8ln('Pokémon'); ?></th>
         <th><?php echo i8ln('Nest Name'); ?></th>
-        <th><?php echo i8ln('Avarage/H'); ?></th>
+        <th><?php echo i8ln('Avarage/h'); ?></th>
       </tr>
     </thead>
   </table>
