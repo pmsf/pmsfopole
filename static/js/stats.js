@@ -2,7 +2,7 @@ var language = document.documentElement.lang === '' ? 'en' : document.documentEl
 var i8lnDictionary = {}
 var languageLookups = 0
 var languageLookupThreshold = 3
-
+var rawDataIsLoading = false
 
 if (raidPage && getPage === 'raids') {
   var raidTable = $('#raidTable').DataTable({
@@ -113,7 +113,6 @@ initSettings()
 updateStats()
 window.setInterval(updateStats, queryDelay * 1000)
 
-var rawDataIsLoading = false
 function loadRawData() {
   var geofence = Store.get('geofence')
 
@@ -296,7 +295,7 @@ function processPokemon(i, item) {
 
 function initSettings() {
   if (Store.get('geofence')) {
-    $('#geofence').val(Store.get('geofence'))
+    $('#geofence-button').html(Store.get('geofence'))
   }
 }
 
@@ -355,9 +354,10 @@ function i8ln(word) {
 }
 
 $(function () {
-  $('#geofence').change(function () {
-    var geofence = this.value
-    Store.set('geofence', geofence)
-    updateStats()
+  $('#geofence a').click(function () {
+      var geofence = $(this).html()
+      $('#geofence-button').html(geofence)
+      Store.set('geofence', geofence)
+      updateStats()
   })
 })
