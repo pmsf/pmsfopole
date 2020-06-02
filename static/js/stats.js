@@ -355,9 +355,9 @@ function i8ln(word) {
 
 $(function () {
   $('#geofence a').click(function () {
-      var geofence = $(this).html()
-      $('#geofence-button').html(geofence)
-      Store.set('geofence', geofence)
-      updateStats()
+    var geofence = $(this).html()
+    $('#geofence-button').html(geofence)
+    Store.set('geofence', geofence)
+    updateStats()
   })
 })
