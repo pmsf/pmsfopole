@@ -126,8 +126,8 @@ if (nestPage && getPage === 'nest') {
     language: {
       search: i8ln('Search:'),
       emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>',
-      info: i8ln('Showing') + ' _START_ ' + i8ln('to') + ' _END_ ' + i8ln('of') + ' _TOTAL_ ' + i8ln('entries'),
-      lengthMenu: i8ln('Show') + ' _MENU_ ' + i8ln('entries'),
+      info: i8ln('Showing _START_ to _END_ of _TOTAL_ entries'),
+      lengthMenu: i8ln('Show _MENU_ entries'),
       paginate: {
         next: i8ln('Next'),
         previous: i8ln('Previous')
