@@ -28,12 +28,14 @@ module.exports = function (grunt) {
             },
             prod: {
                 files: {
-                    'static/dist/js/stats.built.js': 'static/js/stats.js'
+                    'static/dist/js/stats.built.js': 'static/js/stats.js',
+                    'static/dist/js/stats.common.built.js': 'static/js/stats.common.js'
                 }
             },
             dev: {
                 files: {
-                    'static/dist/js/stats.min.js': 'static/js/stats.js'
+                    'static/dist/js/stats.min.js': 'static/js/stats.js',
+                    'static/dist/js/stats.common.min.js': 'static/js/stats.common.js'
                 }
             }
         },
@@ -47,7 +49,8 @@ module.exports = function (grunt) {
             },
             prod: {
                 files: {
-                    'static/dist/js/stats.min.js': 'static/dist/js/stats.built.js'
+                    'static/dist/js/stats.min.js': 'static/dist/js/stats.built.js',
+                    'static/dist/js/stats.common.min.js': 'static/dist/js/stats.common.built.js'
                 }
             }
         },

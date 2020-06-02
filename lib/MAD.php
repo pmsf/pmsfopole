@@ -4,13 +4,31 @@ namespace Scanner;
 
 class MAD extends Scanner
 {
-    public function query_overview()
+    public function query_overview($selectedGeofence)
     {
-      global $db;
-      $pokemon = $db->query("SELECT count(*) AS pokemon_count FROM pokemon WHERE disappear_time > UTC_TIMESTAMP()")->fetch();
-      $gym = $db->query("SELECT COUNT(*) AS gym_count FROM gym")->fetch();
-      $raid = $db->query("SELECT COUNT(*) AS raid_count FROM raid WHERE end > UTC_TIMESTAMP()")->fetch();
-      $pokestop = $db->query("SELECT COUNT(*) AS pokestop_count FROM pokestop")->fetch();
+      global $db, $geofences;
+
+      $whereGeofenceSQL = '';
+      $andGeofenceSQL = '';
+      if ($selectedGeofence) {
+        $geofence = array_search($selectedGeofence, $geofences);
+        if ($geofence !== 'All') {
+          $whereGeofenceSQL = " WHERE (ST_WITHIN(point(latitude, longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
+          $andGeofenceSQL = " AND (ST_WITHIN(point(latitude, longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
+        }
+      }
+
+      $pokemon = $db->query("SELECT count(*) AS pokemon_count FROM pokemon WHERE disappear_time > UTC_TIMESTAMP() $andGeofenceSQL")->fetch();
+      $gym = $db->query("SELECT COUNT(*) AS gym_count FROM gym $whereGeofenceSQL")->fetch();
+      $pokestop = $db->query("SELECT COUNT(*) AS pokestop_count FROM pokestop $whereGeofenceSQL")->fetch();
+
+      $raid = $db->query("
+        SELECT
+          COUNT(*) AS raid_count
+        FROM raid
+        LEFT JOIN gym ON raid.gym_id = gym.gym_id
+        WHERE raid.end > UTC_TIMESTAMP() $andGeofenceSQL
+      ")->fetch();
 
       $data = array();
     
@@ -23,16 +41,26 @@ class MAD extends Scanner
       return $data;
     }
 
-    public function query_teams()
+    public function query_teams($selectedGeofence)
     {
-      global $db;
+      global $db, $geofences;
+
+      $geofenceSQL = '';
+      if ($selectedGeofence) {
+        $geofence = array_search($selectedGeofence, $geofences);
+        if ($geofence !== 'All') {
+          $geofenceSQL = " WHERE (ST_WITHIN(point(latitude, longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
+        }
+      }
+
       $teams = $db->query("
         SELECT 
           SUM(team_id = 0) AS neutral_count,
           SUM(team_id = 1) AS mystic_count,
           SUM(team_id = 2) AS valor_count,
           SUM(team_id = 3) AS instinct_count
-        FROM gym"
+        FROM gym
+        $geofenceSQL"
       )->fetch();
 
       $data = array();
@@ -46,9 +74,20 @@ class MAD extends Scanner
       return $data;
     }
 
-    public function query_pokestops()
+    public function query_pokestops($selectedGeofence)
     {
-      global $db;
+      global $db, $geofences;
+
+      $whereGeofenceSQL = '';
+      $andGeofenceSQL = '';
+      if ($selectedGeofence) {
+        $geofence = array_search($selectedGeofence, $geofences);
+        if ($geofence !== 'All') {
+          $whereGeofenceSQL = " WHERE (ST_WITHIN(point(latitude, longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
+          $andGeofenceSQL = " AND (ST_WITHIN(point(p.latitude, p.longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
+        }
+      }
+
       $pokestops = $db->query("
         SELECT
           SUM(incident_expiration > UTC_TIMESTAMP()) AS rocket,
@@ -56,9 +95,17 @@ class MAD extends Scanner
           SUM(lure_expiration > UTC_TIMESTAMP() AND active_fort_modifier = 502) AS glacial_lure,
           SUM(lure_expiration > UTC_TIMESTAMP() AND active_fort_modifier = 503) AS mossy_lure,
           SUM(lure_expiration > UTC_TIMESTAMP() AND active_fort_modifier = 504) AS magnetic_lure
-        FROM pokestop"
+        FROM pokestop
+        $whereGeofenceSQL"
       )->fetch();
-      $quests = $db->query("SELECT COUNT(*) AS count FROM trs_quest WHERE quest_timestamp >= UNIX_TIMESTAMP(CURDATE())")->fetch();
+
+      $quests = $db->query("
+        SELECT
+          COUNT(*) AS count
+        FROM trs_quest tq
+        LEFT JOIN pokestop p ON p.pokestop_id = tq.GUID
+        WHERE tq.quest_timestamp >= UNIX_TIMESTAMP(CURDATE()) $andGeofenceSQL"
+      )->fetch();
 
       $data = array();
 
@@ -73,15 +120,25 @@ class MAD extends Scanner
       return $data;
     }
 
-    public function query_spawnpoints()
+    public function query_spawnpoints($selectedGeofence)
     {
-      global $db;
+      global $db, $geofences;
+
+      $geofenceSQL = '';
+      if ($selectedGeofence) {
+        $geofence = array_search($selectedGeofence, $geofences);
+        if ($geofence !== 'All') {
+          $geofenceSQL = " WHERE (ST_WITHIN(point(latitude, longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
+        }
+      }
+
       $spawnpoints = $db->query("
         SELECT
           COUNT(*) AS total,
           SUM(last_scanned IS NOT NULL) AS found,
           SUM(last_scanned IS NULL) AS missing
-        FROM trs_spawn"
+        FROM trs_spawn
+        $geofenceSQL"
       )->fetch();
 
       $data = array();
@@ -94,9 +151,18 @@ class MAD extends Scanner
       return $data;
     }
 
-    public function query_raids()
+    public function query_raids($selectedGeofence)
     {
-      global $db;
+      global $db, $geofences;
+
+      $geofenceSQL = '';
+      if ($selectedGeofence) {
+        $geofence = array_search($selectedGeofence, $geofences);
+        if ($geofence !== 'All') {
+          $geofenceSQL = " AND (ST_WITHIN(point(latitude, longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
+        }
+      }
+
       $raids = $db->query("
         SELECT
           COUNT(*) AS count,
@@ -106,10 +172,16 @@ class MAD extends Scanner
           raid.costume AS costume
         FROM raid
         LEFT JOIN gym ON raid.gym_id = gym.gym_id
-        WHERE end >= UTC_TIMESTAMP() and raid.level >= 1
+        WHERE end >= UTC_TIMESTAMP() and raid.level >= 1 $geofenceSQL
         GROUP BY raid.level, raid.pokemon_id, raid.form, raid.costume"
       );
-      $total = $db->query("SELECT COUNT(*) AS total FROM raid WHERE end >= UTC_TIMESTAMP()")->fetch();
+      $total = $db->query("
+        SELECT
+          COUNT(*) AS total
+        FROM raid
+        LEFT JOIN gym ON raid.gym_id = gym.gym_id
+        WHERE end >= UTC_TIMESTAMP() $geofenceSQL
+      ")->fetch();
 
       $data = array();
       foreach ($raids as $raid) {
@@ -129,22 +201,39 @@ class MAD extends Scanner
       return $data;
     }
 
-    public function query_rewards()
+    public function query_rewards($selectedGeofence)
     {
-      global $db;
+      global $db, $geofences;
+
+      $geofenceSQL = '';
+      if ($selectedGeofence) {
+        $geofence = array_search($selectedGeofence, $geofences);
+        if ($geofence !== 'All') {
+          $geofenceSQL = " AND (ST_WITHIN(point(p.latitude, p.longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
+        }
+      }
+
       $rewards = $db->query("
         SELECT 
           COUNT(GUID) as count,
-          quest_item_id, 
-          quest_pokemon_id, 
-          quest_pokemon_form_id AS quest_pokemon_form,
-          quest_item_amount AS quest_item_amount,
-          quest_stardust AS quest_dust_amount
-        FROM trs_quest
-        WHERE quest_timestamp >= UNIX_TIMESTAMP(CURDATE())
-        GROUP BY quest_reward_type, quest_item_id, quest_stardust, quest_item_amount, quest_pokemon_id, quest_pokemon_form_id"
+          tq.quest_item_id, 
+          tq.quest_pokemon_id, 
+          tq.quest_pokemon_form_id AS quest_pokemon_form,
+          tq.quest_item_amount AS quest_item_amount,
+          tq.quest_stardust AS quest_dust_amount
+        FROM trs_quest tq
+        LEFT JOIN pokestop p ON p.pokestop_id = tq.GUID
+        WHERE tq.quest_timestamp >= UNIX_TIMESTAMP(CURDATE()) $geofenceSQL
+        GROUP BY tq.quest_reward_type, tq.quest_item_id, tq.quest_stardust, tq.quest_item_amount, tq.quest_pokemon_id, tq.quest_pokemon_form_id"
       );
-      $total = $db->query("SELECT COUNT(*) AS total FROM trs_quest WHERE quest_timestamp >= UNIX_TIMESTAMP(CURDATE())")->fetch();
+
+      $total = $db->query("
+        SELECT
+          COUNT(*) AS total
+        FROM trs_quest tq
+        LEFT JOIN pokestop p ON p.pokestop_id = tq.GUID
+        WHERE tq.quest_timestamp >= UNIX_TIMESTAMP(CURDATE()) $geofenceSQL"
+      )->fetch();
 
       $data = array();
       foreach ($rewards as $reward) {
@@ -169,9 +258,18 @@ class MAD extends Scanner
       return $data;
     }
 
-    public function query_shiny()
+    public function query_shiny($selectedGeofence)
     {
-      global $db;
+      global $db, $geofences;
+
+      $geofenceSQL = '';
+      if ($selectedGeofence) {
+        $geofence = array_search($selectedGeofence, $geofences);
+        if ($geofence !== 'All') {
+          $geofenceSQL = " AND (ST_WITHIN(point(latitude, longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
+        }
+      }
+
       $shinys = $db->query("
         SELECT
           SUM(shiny) AS shiny_count,
@@ -180,7 +278,7 @@ class MAD extends Scanner
           costume,
           COUNT(*) AS sample_size
         FROM pokemon
-        WHERE expire_timestamp > UNIX_TIMESTAMP() - 86400 AND iv IS NOT NULL
+        WHERE expire_timestamp > UNIX_TIMESTAMP() - 86400 AND iv IS NOT NULL $geofenceSQL
         GROUP BY pokemon_id, form, costume
         HAVING shiny_count >= 1"
       );
@@ -200,22 +298,31 @@ class MAD extends Scanner
       return $data;
     }
 
-    public function query_invasions()
+    public function query_invasions($selectedGeofence)
     {
-      global $db;
+      global $db, $geofences;
+
+      $geofenceSQL = '';
+      if ($selectedGeofence) {
+        $geofence = array_search($selectedGeofence, $geofences);
+        if ($geofence !== 'All') {
+          $geofenceSQL = " AND (ST_WITHIN(point(latitude, longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
+        }
+      }
+
       $invasions = $db->query("
         SELECT
           COUNT(*) AS count,
           incident_grunt_type AS grunt_type
         FROM pokestop
-        WHERE incident_expiration > UTC_TIMESTAMP()
+        WHERE incident_expiration > UTC_TIMESTAMP() $geofenceSQL
         GROUP BY incident_grunt_type"
       );
       $total = $db->query("
         SELECT 
           COUNT(*) AS total
         FROM pokestop
-        WHERE incident_expiration > UTC_TIMESTAMP() AND incident_grunt_type IS NOT NULL"
+        WHERE incident_expiration > UTC_TIMESTAMP() AND incident_grunt_type IS NOT NULL $geofenceSQL"
       )->fetch();
 
       $data = array();
@@ -229,9 +336,18 @@ class MAD extends Scanner
       return $data;
     }
 
-    public function query_pokemon()
+    public function query_pokemon($selectedGeofence)
     {
-      global $db;
+      global $db, $geofences;
+
+      $geofenceSQL = '';
+      if ($selectedGeofence) {
+        $geofence = array_search($selectedGeofence, $geofences);
+        if ($geofence !== 'All') {
+          $geofenceSQL = " AND (ST_WITHIN(point(latitude, longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
+        }
+      }
+
       $mons = $db->query("
         SELECT
           pokemon_id,
@@ -239,10 +355,10 @@ class MAD extends Scanner
           costume,
           count(*) AS count
         FROM pokemon
-        WHERE disappear_time > UTC_TIMESTAMP()
+        WHERE disappear_time > UTC_TIMESTAMP() $geofenceSQL
         GROUP BY pokemon_id, form, costume"
       );
-      $total = $db->query("SELECT COUNT(*) AS total FROM pokemon WHERE disappear_time > UTC_TIMESTAMP()")->fetch();
+      $total = $db->query("SELECT COUNT(*) AS total FROM pokemon WHERE disappear_time > UTC_TIMESTAMP() $geofenceSQL")->fetch();
 
       $data = array();
       foreach ($mons as $mon) {
