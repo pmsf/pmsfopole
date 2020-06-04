@@ -19,6 +19,8 @@ if (strtolower($backend) === "rdm") {
   $scanner = new \Scanner\MAD();
 }
 
+$manual = new \Scanner\Manual();
+
 $getPage = !empty($_POST['getPage']) ? $_POST['getPage'] : false;
 $geofence = !empty($_POST['geofence']) ? $_POST['geofence'] : false;
 
@@ -65,6 +67,10 @@ if ($getPage && $getPage === 'invasion') {
   $debug['2_after_invasion'] = microtime(true) - $timing['start'];
 }
 
+if ($getPage && $getPage === 'nest') {
+  $data['nest'] = $manual->query_nests($geofence);
+  $debug['2_after_nests'] = microtime(true) - $timing['start'];
+}
 
 refreshCsrfToken();
 $debug['end'] = microtime(true) - $timing['start'];

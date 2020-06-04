@@ -58,6 +58,10 @@ $rewardPage = true;
 $invasionPage = true;
 $shinyPage = false;   // Does not work for mad yet.
 
+/* Nest Page */
+$nestPage = true;
+$minNestAvg = 2; // 0 to disable
+$unknownParkName = false; // enable/disable nests with unknown park names
 
 /* Geofences */
 $geofenceDefault = 'All Areas';
@@ -90,7 +94,7 @@ $db = new Medoo([
     'charset' => 'utf8mb4'
 ]);
 
-$manualdb = new Medoo([ // Comment out if not using discord auth
+$manualdb = new Medoo([ // Comment out if not using discord auth and nest page
     'database_type' => 'mysql',                                    
     'database_name' => 'manualdb',
     'server' => 'localhost',

@@ -1,7 +1,7 @@
 {
   "Welcome": "Witaj",
   "Overview": "Przegląd",
-  "Pokémon": "Pokemony",
+  "Pokémon": "Pokemon",
   "Gyms": "Gymy",
   "Raids": "Raidy",
   "Pokéstops": "Pokestopy",
@@ -49,5 +49,6 @@
   "Follow Us": "Śledź nas na:",
   "This website or the authors have no relationship with Niantic, Nintendo or any other Pokémon Go responsible.": "Ta strona jak i jej autorzy nie mają żadnych powiązań z Niantic, Nintendo czy inną marką związaną z Pokemon GO.",
   "Pokémon Go is &copy;2016 Niantic, Inc. &copy;2016 Pokémon. &copy;1995–2016 Nintendo / Creatures Inc. / GAME FREAK Inc.": "Pokémon Go należy do &copy;2016 Niantic, Inc. &copy;2016 Pokémon. &copy;1995–2016 Nintendo / Creatures Inc. / GAME FREAK Inc.",
-  "Pokémon and Pokémon character names are trademarks of Nintendo. Other trademarks are the property of their respective owners.": "Pokemony i ich nazwy to znaki handlowe należące do Nintendo. Inne znaki handlowe należą do ich prawowitych właścicieli."
+  "Pokémon and Pokémon character names are trademarks of Nintendo. Other trademarks are the property of their respective owners.": "Pokemony i ich nazwy to znaki handlowe należące do Nintendo. Inne znaki handlowe należą do ich prawowitych właścicieli.",
+  "ID": "Numer"
 }

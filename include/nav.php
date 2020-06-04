@@ -35,6 +35,11 @@
                 <img src="static/images/svg/shinysparkles.svg" style="width:22px;height:22px;filter:brightness(0%);"> <?php echo i8ln('Shiny Rate'); ?>
               </a>
             <?php } ?>
+            <?php if ($nestPage) { ?>
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="?page=nest">
+                <img src="static/images/nest.png" style="width:22px;height:22px;"> <?php echo i8ln('Nests'); ?>
+              </a>
+            <?php } ?>
             <?php if ($homeUrl !== '' || $mapUrl !== '') { ?>
               <div class="dropdown-divider"></div>
               <h6 class="dropdown-header"><?php echo i8ln('Other Pages'); ?></h6>

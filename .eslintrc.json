@@ -43,6 +43,7 @@
     "rewardPage": true,
     "invasionPage": true,
     "shinyPage": true,
+    "nestPage": true,
     "pokemonIconPath": true,
     "itemIconPath": true,
     "eggIconPath": true,
