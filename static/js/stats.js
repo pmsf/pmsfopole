@@ -63,7 +63,13 @@ if (shinyPage && getPage === 'shiny') {
     language: {
       search: i8ln('Search:'),
       emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>'
-    }
+    },
+    columnDefs: [
+      {
+        type: 'natural',
+        targets: 2
+      }
+    ]
   })
 }
 
