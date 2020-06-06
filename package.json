@@ -57,6 +57,14 @@
     "jit-grunt": "^0.10.0",
     "long": "^3.2.0",
     "node-sass": "^4.13.0",
-    "phplint": "^1.7.4"
+    "phplint": "^1.7.4",
+    "bootstrap": "4.5.0",
+    "popper.js": "^1.16.0",
+    "jquery": "3.5.1",
+    "datatables.net": "1.10.21",
+    "datatables.net-bs4": "1.10.21",
+    "datatables.net-responsive": "2.2.5",
+    "datatables.net-responsive-dt": "2.2.5",
+    "datatables.net-plugins": "1.10.20"
   }
 }
