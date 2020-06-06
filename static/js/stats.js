@@ -96,9 +96,9 @@ if (invasionPage && getPage === 'invasion') {
 
 if (pokemonPage && getPage === 'pokemon') {
   var pokemonTable = $('#pokemonTable').DataTable({
-    paging: false,
+    paging: true,
     searching: true,
-    info: false,
+    info: true,
     responsive: true,
     stateSave: true,
     stateSaveCallback: function (settings, data) {
@@ -110,7 +110,13 @@ if (pokemonPage && getPage === 'pokemon') {
     stateDuration: 0,
     language: {
       search: i8ln('Search:'),
-      emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>'
+      emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>',
+      info: i8ln('Showing _START_ to _END_ of _TOTAL_ entries'),
+      lengthMenu: i8ln('Show _MENU_ entries'),
+      paginate: {
+        next: i8ln('Next'),
+        previous: i8ln('Previous')
+      }
     }
   })
 }
@@ -381,11 +387,11 @@ function updateStats() {
       $.each(result.invasion, processInvasions)
     }
     if (pokemonPage && getPage === 'pokemon') {
-      pokemonTable.clear().draw()
+      pokemonTable.clear().draw(false)
       $.each(result.pokemon, processPokemon)
     }
     if (nestPage && getPage === 'nest') {
-      nestTable.clear().draw()
+      nestTable.clear().draw(false)
       $.each(result.nest, processNests)
     }
   })
