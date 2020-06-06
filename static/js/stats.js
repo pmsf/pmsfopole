@@ -99,7 +99,7 @@ if (pokemonPage && getPage === 'pokemon') {
     paging: false,
     searching: true,
     info: false,
-    responsive: false,
+    responsive: true,
     stateSave: true,
     stateSaveCallback: function (settings, data) {
       localStorage.setItem('DataTables_' + settings.sInstance, JSON.stringify(data))
@@ -120,7 +120,7 @@ if (nestPage && getPage === 'nest') {
     paging: true,
     searching: true,
     info: true,
-    responsive: false,
+    responsive: true,
     stateSave: true,
     stateSaveCallback: function (settings, data) {
       localStorage.setItem('DataTables_' + settings.sInstance, JSON.stringify(data))

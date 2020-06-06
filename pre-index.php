@@ -52,12 +52,12 @@ if (!empty($_GET['page'])) {
   <!-- Token -->
   <script>var token = '<?php echo (!empty($_SESSION['token'])) ? $_SESSION['token'] : ""; ?>';</script>
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <!-- DataTables CSS -->
   <?php
   if ($enablePage !== 'overview') {
-    echo '<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">';
-    echo '<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.4/css/responsive.dataTables.min.css">';
+    echo '<link rel="stylesheet" href="node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css">';
+    echo '<link rel="stylesheet" href="node_modules/datatables.net-responsive-dt/css/responsive.dataTables.min.css">';
   } ?>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
@@ -105,17 +105,16 @@ if (!empty($_GET['page'])) {
     }
   ?>
   <!-- scripts -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script type='text/javascript' charset='utf8' src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
+  <script src='node_modules/jquery/dist/jquery.min.js'></script>
   <?php
   if ($enablePage !== 'overview') {
-    echo '<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>';
-    echo '<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>';
-    echo '<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.4/js/dataTables.responsive.min.js"></script>';
-    echo '<script src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/natural.js"></script>';
+    echo '<script src="node_modules/datatables.net/js/jquery.dataTables.min.js"></script>';
+    echo '<script src="node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>';
+    echo '<script src="node_modules/datatables.net-responsive/js/dataTables.responsive.min.js"></script>';
+    echo '<script src="node_modules/datatables.net-plugins/sorting/natural.js"></script>';
   } ?>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script>
     var getPage = '<?php echo $enablePage ?>';
     var queryDelay = '<?php echo $queryDelay ?>';

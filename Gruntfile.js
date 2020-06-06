@@ -123,7 +123,7 @@ module.exports = function (grunt) {
             },
             taskName: {
                 files: [{
-                    src: ['index.php', 'user.php']
+                    src: ['index.php']
                 }]
             }
         }
