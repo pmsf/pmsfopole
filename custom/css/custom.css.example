@@ -9,6 +9,10 @@ tbody {
   background-color: white;
 }
 .card-header {
+  background-image: url(../../static/images/stop.png);
+  background-size: 60px auto;
+  background-repeat: no-repeat;
+  background-position: right 2px center;
   background-color: #317dcb !important;
 }
 .text-muted {

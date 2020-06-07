@@ -55,7 +55,6 @@
     "grunt-unused": "latest",
     "grunt-usemin": "https://github.com/pmsf/grunt-usemin/tarball/master",
     "jit-grunt": "^0.10.0",
-    "long": "^3.2.0",
     "node-sass": "^4.13.0",
     "phplint": "^1.7.4",
     "bootstrap": "4.5.0",
