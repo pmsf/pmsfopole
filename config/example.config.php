@@ -56,7 +56,7 @@ $pokemonPage = true;
 $raidPage = true;
 $rewardPage = true;
 $invasionPage = true;
-$shinyPage = false;   // Does not work for mad yet.
+$shinyPage = true;
 
 /* Nest Page */
 $nestPage = true;
