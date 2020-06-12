@@ -1,16 +1,21 @@
 <?php if ($rewardPage) { ?>
-  <div style="height: 40px; background-color:white"></div>
-  <!-- Reward table -->
-  <table id="rewardTable" class="table table-striped table-bordered" style="width:100%;">
-    <thead class="thead-dark">
-      <tr>
-        <th><?php echo i8ln('Type'); ?></th>
-        <th><?php echo i8ln('Reward'); ?></th>
-        <th><?php echo i8ln('Count'); ?></th>
-        <th>%</th>
-      </tr>
-    </thead>
-  </table>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <table id="rewardTable" class="table table-striped table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th><?php echo i8ln('Type'); ?></th>
+              <th><?php echo i8ln('Reward'); ?></th>
+              <th><?php echo i8ln('Count'); ?></th>
+              <th>%</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
 <?php } else { ?>
   <br><center><h1><?php echo i8ln('Access denied.'); ?></h1>
   <div><img src="static/images/accessdenied.png" style="max-width:45vh"></div><br><br>
