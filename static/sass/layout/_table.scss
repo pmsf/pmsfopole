@@ -6,15 +6,12 @@
 
 .table {
   text-align: center;
+  width: 100% !important;
 }
 
 td, th {
   vertical-align: middle !important;
   font-weight: 700;
-}
-
-div#raidTable_filter, div#rewardTable_filter {
-  margin-right:2%;
 }
 
 .tableIcon {
