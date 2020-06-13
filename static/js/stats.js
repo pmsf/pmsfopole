@@ -481,7 +481,9 @@ $(function () {
 
       var hash = '#' + window.location.hash.charAt(1).toUpperCase() + window.location.hash.slice(2)
 
-      $(hash).modal('show')
+      setTimeout(function() {
+        $(hash).modal('show')
+      }, 200)
 
       $('html, body').animate({
         'scrollTop': $(hash + '-col').offset().top

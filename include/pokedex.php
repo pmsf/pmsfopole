@@ -87,50 +87,67 @@ $numberOfPokemon = 649;
           $html .= '
             <div class="row">
               <div class="col">
-                <ul class="list-group mt-4">
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <small><b>' . i8ln('Third Move Cost') . ':</b></small>
-                    <small>' . $fam[$i]['thirdmove']['candyToUnlock'] . ' ' . i8ln('Candy') . ' / ' . $fam[$i]['thirdmove']['stardustToUnlock'] . ' ' . i8ln('Stardust') . '</small>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <small><b>' . i8ln('Buddy Distance') . ':</b></small>
-                    <small>' . $fam[$i]['buddy_distance'] . i8ln('km') . '</small>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <small><b>' . i8ln('Attack / Defense / Stamina') . ':</b></small>
-                    <small>' . $fam[$i]['attack'] . ' / ' . $fam[$i]['defense'] . ' / ' . $fam[$i]['stamina'] . '</small>
-                  </li>
+                <ul class="list-group mt-4">';
+                  if (isset($fam[$i]['thirdmove']['candyToUnlock']) && isset($fam[$i]['thirdmove']['stardustToUnlock'])) {
+                    $html .= '
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <small><b>' . i8ln('Third Move Cost') . ':</b></small>
+                      <small>' . $fam[$i]['thirdmove']['candyToUnlock'] . ' ' . i8ln('Candy') . ' / ' . $fam[$i]['thirdmove']['stardustToUnlock'] . ' ' . i8ln('Stardust') . '</small>
+                    </li>';
+                  }
+                  if (isset($fam[$i]['buddy_distance']) && !empty($fam[$i]['buddy_distance'])) {
+                    $html .= '
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <small><b>' . i8ln('Buddy Distance') . ':</b></small>
+                      <small>' . $fam[$i]['buddy_distance'] . i8ln('km') . '</small>
+                    </li>';
+                  }
+                  if (isset($fam[$i]['attack']) && isset($fam[$i]['defense']) && isset($fam[$i]['stamina'])) {
+                    $html .= '
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <small><b>' . i8ln('Attack / Defense / Stamina') . ':</b></small>
+                      <small>' . $fam[$i]['attack'] . ' / ' . $fam[$i]['defense'] . ' / ' . $fam[$i]['stamina'] . '</small>
+                    </li>';
+                  }
+                  $html .= '
                 </ul>
               </div>
             </div>
             <br>
-            <div class="row">
-              <div class="col">
-                <ul class="list-group">
-                  <li class="list-group-item align-items-center">
-                    <small><b>' . i8ln('Quick Moves') . '</b></small>
-                  </li>';
-                  foreach ($fam[$i]['quickmove'] as $quickmove) {
-                    $html .= '<li class="list-group-item align-items-center">
-                      <small>' . i8ln($quickmove) . '</small>
+            <div class="row">';
+              if (isset($fam[$i]['quickmove'])) {
+                $html .= '
+                <div class="col">
+                  <ul class="list-group">
+                    <li class="list-group-item align-items-center">
+                      <small><b>' . i8ln('Quick Moves') . '</b></small>
                     </li>';
-                  }
-                  $html .= '
-                </ul>
-              </div>
-              <div class="col">
-                <ul class="list-group">
-                  <li class="list-group-item align-items-center">
-                    <small><b>' . i8ln('Charge Moves') . '</b></small>
-                  </li>';
-                  foreach ($fam[$i]['chargedmove'] as $chargemove) {
-                    $html .= '<li class="list-group-item align-items-center">
-                      <small>' . i8ln($chargemove) . '</small>
+                    foreach ($fam[$i]['quickmove'] as $quickmove) {
+                      $html .= '<li class="list-group-item align-items-center">
+                        <small>' . i8ln($quickmove) . '</small>
+                      </li>';
+                    }
+                    $html .= '
+                  </ul>
+                </div>';
+              }
+              if (isset($fam[$i]['chargedmove'])) {
+                $html .= '
+                <div class="col">
+                  <ul class="list-group">
+                    <li class="list-group-item align-items-center">
+                      <small><b>' . i8ln('Charge Moves') . '</b></small>
                     </li>';
-                  }
-                  $html .= '
-                </ul>
-              </div>
+                    foreach ($fam[$i]['chargedmove'] as $chargemove) {
+                      $html .= '<li class="list-group-item align-items-center">
+                        <small>' . i8ln($chargemove) . '</small>
+                      </li>';
+                    }
+                    $html .= '
+                  </ul>
+                </div>';
+              }
+              $html .= '
             </div>';
 
 
