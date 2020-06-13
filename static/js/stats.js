@@ -148,13 +148,14 @@ if (nestPage && getPage === 'nest') {
   })
 }
 
-initSettings()
-updateStats()
-
-if (getPage !== 'nest' && getPage !== 'pokedex') {
-  window.setInterval(updateStats, queryDelay * 1000)
-} else if (getPage === 'nest') {
-  window.setInterval(nestMigrationTimer, 1000)
+if (getPage !== 'pokedex') {
+  initSettings()
+  updateStats()
+  if (getPage !== 'nest') {
+    window.setInterval(updateStats, queryDelay * 1000)
+  } else if (getPage === 'nest') {
+    window.setInterval(nestMigrationTimer, 1000)
+  }
 }
 
 function loadRawData() {
