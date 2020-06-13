@@ -483,7 +483,7 @@ $(function () {
 
       setTimeout(function() {
         $(hash).modal('show')
-      }, 200)
+      }, 300)
 
       $('html, body').animate({
         'scrollTop': $(hash + '-col').offset().top
