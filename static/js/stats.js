@@ -478,8 +478,14 @@ $(function () {
     }
     window.onhashchange = function() {
       $('div.modal').modal('hide')
+
       var hash = '#' + window.location.hash.charAt(1).toUpperCase() + window.location.hash.slice(2)
+
       $(hash).modal('show')
+
+      $('html, body').animate({
+        'scrollTop': $(hash + '-col').offset().top
+      })
     }
   }
 
