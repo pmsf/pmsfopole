@@ -72,28 +72,24 @@ if (!empty($_GET['page'])) {
     /* Include Nav */
     include('include/nav.php');
 
-    /* Welcome */
-    if (isset($_SESSION['user']->user)) {
-      $user = explode("#", $_SESSION['user']->user);
-      echo '<h3 class="page-header text-center">' . i8ln('Welcome') . ' ' . $user[0] . '</h3>';
-    }
-  ?>
-  <br>
-
-  <center>
-    <div class="btn-group" id="geofence">
-      <button id="geofence-button" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <?php echo i8ln('Select Area'); ?>
-      </button>
-      <div class="dropdown-menu">
-        <?php
-          foreach($geofences as $key => $value) {
-            echo '<a class="dropdown-item" href="#">' . $value . '</a>';
-          }
-        ?>
-      </div>
-    </div>
-  </center>
+    if ($enablePage !== 'pokedex') { 
+      ?>
+      <center>
+        <div class="btn-group" id="geofence">
+          <button id="geofence-button" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <?php echo i8ln('Select Area'); ?>
+          </button>
+          <div class="dropdown-menu">
+            <?php
+              foreach($geofences as $key => $value) {
+                echo '<a class="dropdown-item" href="#">' . $value . '</a>';
+              }
+            ?>
+          </div>
+        </div>
+      </center>
+      <?php
+    } ?>
 
   <?php
     /* Include Page */

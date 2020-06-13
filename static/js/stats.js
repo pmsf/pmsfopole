@@ -151,9 +151,9 @@ if (nestPage && getPage === 'nest') {
 initSettings()
 updateStats()
 
-if (getPage !== 'nest') {
+if (getPage !== 'nest' && getPage !== 'pokedex') {
   window.setInterval(updateStats, queryDelay * 1000)
-} else {
+} else if (getPage === 'nest') {
   window.setInterval(nestMigrationTimer, 1000)
 }
 
@@ -322,7 +322,7 @@ function processPokemon(i, item) {
   if (item['costume'] > 0) {
     costume = '_' + item['costume']
   }
-  var pokemon = '<img src="' + pokemonIconPath + 'pokemon_icon_' + id + '_' + item['form'] + costume + '.png" class="tableIcon"><br>' + item['name']
+  var pokemon = '<a href="?page=pokedex#' + item['name'] + '" style="color:#212529;"><img src="' + pokemonIconPath + 'pokemon_icon_' + id + '_' + item['form'] + costume + '.png" class="tableIcon"><br>' + item['name']
   var types = item['pokemon_types']
   var typeDisplay = ''
   $.each(types, function (index, type) {
@@ -456,10 +456,25 @@ function nestMigrationTimer() {
 }
 
 $(function () {
+
   $('#geofence a').click(function () {
     var geofence = $(this).html()
     $('#geofence-button').html(geofence)
     Store.set('geofence', geofence)
     updateStats()
   })
+
+  if (getPage === 'pokedex') {
+    if (window.location.hash) {
+      var hash = '#' + window.location.hash.charAt(1).toUpperCase() + window.location.hash.slice(2)
+
+      $(hash).modal('show')
+
+      $('html, body').animate({
+        'scrollTop': $(hash + '-col').offset().top
+      }, 2000)
+
+    }
+  }
+
 })

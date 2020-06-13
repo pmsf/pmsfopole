@@ -10,6 +10,9 @@
             <a class="dropdown-item" href=".">
               <i class="fas fa-tachometer-alt"></i> <?php echo i8ln('Overview'); ?>
             </a>
+            <a class="dropdown-item" style="position:relative;left:-3px;" href="?page=pokedex">
+              <img src="static/images/svg/pokedex.svg" style="width:22px;height:22px;"> <?php echo i8ln('Pokédex'); ?>
+            </a>
             <?php if ($pokemonPage) { ?>
               <a class="dropdown-item" style="position:relative;left:-3px;" href="?page=pokemon">
                <img src="<?php echo $pokemonIconPath; ?>pokemon_icon_001_00.png" style="width:22px;height:22px;"> <?php echo i8ln('Pokémon'); ?>
