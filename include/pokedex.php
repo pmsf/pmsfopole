@@ -22,8 +22,10 @@ $numberOfPokemon = 649;
         }
         if ($i <= $numberOfPokemon) {
           echo '<div class="col pokedex-col" id="' . i8ln($pokemon['name']) . '-col" data-toggle="modal" data-target="#' . i8ln($pokemon['name']) . '">
-            <img src="' . $pokemonIconPath . 'pokemon_icon_' . $id .'_00.png" style="height:60px;">
-            <br>' . i8ln($pokemon['name']) . '
+            <a href="#' . i8ln($pokemon['name']) . '" style="color:#212529;">
+              <img src="' . $pokemonIconPath . 'pokemon_icon_' . $id .'_00.png" style="height:60px;">
+              <br>' . i8ln($pokemon['name']) . '
+            </a>
           </div><br>';
 
           $html = '<a href="?page=pokedex#' . i8ln($pokemon['name']) . '"><img src="' . $pokemonIconPath . 'pokemon_icon_' . $id . '_00.png" style="height:60px;"></a>';
@@ -82,7 +84,8 @@ $numberOfPokemon = 649;
             }
           }
 
-          $html .= '<div class="row">
+          $html .= '
+            <div class="row">
               <div class="col">
                 <ul class="list-group mt-4">
                   <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -147,12 +150,16 @@ $numberOfPokemon = 649;
                     <span aria-hidden="true"><i class="fas fa-window-close" style="color:red;font-size:20px;"></i></span>
                   </button>
                 </div>
-                <div class="modal-body">' .
-                  $html . '
-                </div>
+                <div class="modal-body">' . $html . '</div>
                 <div class="modal-footer">
                   <small><b>' . i8ln($fam[$i]['dex']) . '</b></small>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">' . i8ln('Close') . '</button>
+                  <a href="?page=pokedex#' . i8ln($pokedex[$i-1]['name']) . '">
+                    <button type="button" class="btn btn-default btn-prev" style="border: 1px solid #dfdfdf">' . i8ln('Prev') . '</button>
+                  </a>
+                  <a href="?page=pokedex#' . i8ln($pokedex[$i+1]['name']) . '">
+                  <button type="button" class="btn btn-default btn-next" style="border: 1px solid #dfdfdf">' . i8ln('Next') . '</button>
+                  </a>
+                  <button type="button" class="btn btn-default" style="border: 1px solid #dfdfdf" data-dismiss="modal">' . i8ln('Close') . '</button>
                 </div>
               </div>
             </div>

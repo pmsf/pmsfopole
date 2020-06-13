@@ -476,6 +476,11 @@ $(function () {
       }, 2000)
 
     }
+    window.onhashchange = function() {
+      $('div.modal').modal('hide')
+      var hash = '#' + window.location.hash.charAt(1).toUpperCase() + window.location.hash.slice(2)
+      $(hash).modal('show')
+    }
   }
 
 })
