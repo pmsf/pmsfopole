@@ -7925,7 +7925,7 @@
     ]
   },
   "122": {
-    "name": "Mr. Mime",
+    "name": "Mr-Mime",
     "rarity": "Very Rare",
     "baseStamina": 120,
     "baseAttack": 192,
@@ -27241,7 +27241,7 @@
     ]
   },
   "439":{
-    "name": "Mime Jr.",
+    "name": "Mime-Jr",
     "rarity":"",
     "baseStamina": 85,
     "baseAttack": 125,
