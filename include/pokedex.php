@@ -171,12 +171,12 @@ $numberOfPokemon = 649;
                 <div class="modal-footer">
                   <small><b>' . i8ln($fam[$i]['dex']) . '</b></small>
                   <a href="?page=pokedex#' . i8ln($pokedex[$i-1]['name']) . '">
-                    <button type="button" class="btn btn-default btn-prev" style="border: 1px solid #dfdfdf">' . i8ln('Prev') . '</button>
+                    <button type="button" class="btn btn-default" style="border: 1px solid #dfdfdf">' . i8ln('Previous') . '</button>
                   </a>
                   <a href="?page=pokedex#' . i8ln($pokedex[$i+1]['name']) . '">
-                    <button type="button" class="btn btn-default btn-next" style="border: 1px solid #dfdfdf">' . i8ln('Next') . '</button>
+                    <button type="button" class="btn btn-default" style="border: 1px solid #dfdfdf">' . i8ln('Next') . '</button>
                   </a>
-                  <button type="button" class="btn btn-default" style="border: 1px solid #dfdfdf" data-dismiss="modal">' . i8ln('Close') . '</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">' . i8ln('Close') . '</button>
                 </div>
               </div>
             </div>
