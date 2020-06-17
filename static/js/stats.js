@@ -148,13 +148,14 @@ if (nestPage && getPage === 'nest') {
   })
 }
 
-initSettings()
-updateStats()
-
-if (getPage !== 'nest') {
-  window.setInterval(updateStats, queryDelay * 1000)
-} else {
-  window.setInterval(nestMigrationTimer, 1000)
+if (getPage !== 'pokedex') {
+  initSettings()
+  updateStats()
+  if (getPage !== 'nest') {
+    window.setInterval(updateStats, queryDelay * 1000)
+  } else if (getPage === 'nest') {
+    window.setInterval(nestMigrationTimer, 1000)
+  }
 }
 
 function loadRawData() {
@@ -322,11 +323,11 @@ function processPokemon(i, item) {
   if (item['costume'] > 0) {
     costume = '_' + item['costume']
   }
-  var pokemon = '<img src="' + pokemonIconPath + 'pokemon_icon_' + id + '_' + item['form'] + costume + '.png" class="tableIcon"><br>' + item['name']
+  var pokemon = '<a href="?page=pokedex#' + item['name'] + '" style="color:#212529;"><img src="' + pokemonIconPath + 'pokemon_icon_' + id + '_' + item['form'] + costume + '.png" class="tableIcon"><br>' + item['name']
   var types = item['pokemon_types']
   var typeDisplay = ''
   $.each(types, function (index, type) {
-    typeDisplay += i8ln(type['type']) + '<br>'
+    typeDisplay += '<nobr>' + i8ln(type['type']) + ' <img src="static/images/types/' + type['type'] + '.png" style="height:13px;"></nobr><br>'
   })
   pokemonTable.row.add([
     item['pokemon_id'],
@@ -456,10 +457,38 @@ function nestMigrationTimer() {
 }
 
 $(function () {
+
   $('#geofence a').click(function () {
     var geofence = $(this).html()
     $('#geofence-button').html(geofence)
     Store.set('geofence', geofence)
     updateStats()
   })
+
+  if (getPage === 'pokedex') {
+    if (window.location.hash) {
+      var hash = '#' + window.location.hash.charAt(1).toUpperCase() + window.location.hash.slice(2)
+
+      $(hash).modal('show')
+
+      $('html, body').animate({
+        'scrollTop': $(hash + '-col').offset().top
+      }, 2000)
+
+    }
+    window.onhashchange = function() {
+      $('div.modal').modal('hide')
+
+      var hash = '#' + window.location.hash.charAt(1).toUpperCase() + window.location.hash.slice(2)
+
+      setTimeout(function() {
+        $(hash).modal('show')
+      }, 300)
+
+      $('html, body').animate({
+        'scrollTop': $(hash + '-col').offset().top
+      })
+    }
+  }
+
 })
