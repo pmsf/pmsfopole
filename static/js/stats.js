@@ -535,12 +535,12 @@ $(function () {
   })
 
   $('#main').click(function() {
-    $('.mobile-offcanvas').removeClass('show')
+    $('.offcanvas').removeClass('show')
     //$(".screen-overlay").removeClass("show")
   })
 
   //$(window).on('scroll', function() {
-  //  $('.mobile-offcanvas').removeClass('show')
+  //  $('.offcanvas').removeClass('show')
   //  $(".screen-overlay").removeClass("show")
   //})
 

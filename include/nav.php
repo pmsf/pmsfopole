@@ -43,7 +43,7 @@
   </div>
 </nav>
 
-<nav id="navbar_main" class="mobile-offcanvas navbar navbar-light bg-light border">
+<nav id="navbar_main" class="offcanvas navbar navbar-light bg-light border">
   <ul class="navbar-nav mr-auto" style="margin-top: -9px;">
     <div class="accordion" id="accordion-test">
 

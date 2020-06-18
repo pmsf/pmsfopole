@@ -55,7 +55,7 @@ a.navbar-brand {
   visibility: visible;
 }
 
-.mobile-offcanvas {
+.offcanvas {
   visibility: hidden;
   transform: translateX(-100%);
   border-radius: 5px;
@@ -66,12 +66,12 @@ a.navbar-brand {
   height: 92%;
   z-index: 1200;
   width: 18em;
-  overflow-y: hidden;
+  overflow-y: scroll;
   overflow-x: hidden;
   transition: visibility .2s ease-in-out, transform .2s ease-in-out;
 }
 
-.mobile-offcanvas.show {
+.offcanvas.show {
   visibility: visible;
   transform: translateX(0);
 }
