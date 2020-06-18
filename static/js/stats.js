@@ -528,12 +528,12 @@ $(function () {
 
   // SideNav
   $('[data-trigger]').on('click', function () {
-    var offcanvasId =  $(this).attr('data-trigger')
+    var offcanvasId = $(this).attr('data-trigger')
     $(offcanvasId).toggleClass('show')
     $('.screen-overlay').toggleClass('show')
   })
 
-  $('#main').click(function () {
+  $('.screen-overlay').click(function () {
     $('.offcanvas').removeClass('show')
     $('.screen-overlay').removeClass('show')
   })
