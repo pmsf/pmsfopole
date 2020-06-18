@@ -488,6 +488,20 @@ function greyMode() {
   $('div.card-header-navbar').addClass('bg-secondary btn-dark')
 }
 
+(function ($) {
+  $.fn.visible = function (partial) {
+    var $t = $(this)
+    var $w = $(window)
+    var viewTop = $w.scrollTop()
+    var viewBottom = viewTop + $w.height()
+    var _top = $t.offset().top
+    var _bottom = _top + $t.height()
+    var compareTop = partial === true ? _bottom : _top
+    var compareBottom = partial === true ? _top : _bottom
+
+    return ((compareBottom <= viewBottom) && (compareTop >= viewTop))
+  }
+})(jQuery)
 
 $(function () {
   // Geofence
@@ -539,8 +553,10 @@ $(function () {
   })
 
   $(window).on('scroll', function () {
-    $('.offcanvas').removeClass('show')
-    $('.screen-overlay').removeClass('show')
+    if (!$('#header').visible()) {
+      $('.offcanvas').removeClass('show')
+      $('.screen-overlay').removeClass('show')
+    }
   })
 
   // Nav Styling
