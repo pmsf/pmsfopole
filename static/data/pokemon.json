@@ -5591,12 +5591,8 @@
         "assetsform": "00",
         "formtypes": [
           {
-            "type": "Normal",
+            "type": "Fighting",
             "color": "#8a8a59"
-          },
-          {
-            "type": "Flying",
-            "color": "#a890f0"
           }
         ]
       }
