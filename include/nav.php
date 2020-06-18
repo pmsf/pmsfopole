@@ -15,7 +15,7 @@
     <ul class="navbar-nav mr-auto" style="position:absolute;right:1%">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-globe-europe"></i>
+          <img src="static/images/flag-<?php echo $locale; ?>.png" style="height:15px;width:23px">
         </a>
         <div class="dropdown-menu language-dropdown" aria-labelledby="languageDropdown">
           <a class="dropdown-item" href="?lang=en">
