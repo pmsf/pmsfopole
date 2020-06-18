@@ -8,8 +8,18 @@ $family = json_decode($family_json_contents, true);
 $numberOfPokemon = 649;
 ?>
 
-<h2 class="text-center"><?php echo i8ln('Pokédex'); ?></h2>
+
 <div class="container">
+
+  <div class="row">
+    <div class="col">
+      <h2 class="text-center" style="border:1px solid #9a9a9a;">
+        <img src="static/images/pokedex-kanto.png" style="width:70px;height:70px;">
+        <?php echo i8ln('Pokédex'); ?>
+      </h2>
+    </div>
+  </div>
+
   <div class="row pokedex-row text-center m-0">
     <?php
       $i = 1;

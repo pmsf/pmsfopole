@@ -43,12 +43,15 @@ var StoreTypes = {
       return number.toString()
     }
   }
-
-// set the default parameters here
 }
+
 var StoreOptions = {
   'geofence': {
     default: geofenceDefault,
+    type: StoreTypes.String
+  },
+  'navColor': {
+    default: 'light',
     type: StoreTypes.String
   }
 }

@@ -71,35 +71,20 @@ if (!empty($_GET['page'])) {
   <?php
     /* Include Nav */
     include('include/nav.php');
-
-    if ($enablePage !== 'pokedex') { 
-      ?>
-      <center>
-        <div class="btn-group" id="geofence">
-          <button id="geofence-button" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <?php echo i8ln('Select Area'); ?>
-          </button>
-          <div class="dropdown-menu">
-            <?php
-              foreach($geofences as $key => $value) {
-                echo '<a class="dropdown-item" href="#">' . $value . '</a>';
-              }
-            ?>
-          </div>
-        </div>
-      </center>
-      <?php
-    } ?>
-
+  ?>
+  <main id="main">
+    <?php
+      /* Include Page */
+      include($include);
+    ?>
+  </main>
   <?php
-    /* Include Page */
-    include($include);
-
     /* Include Footer */
     if ($footer) {
       include('include/footer.php');
     }
   ?>
+
   <!-- scripts -->
   <script src='node_modules/jquery/dist/jquery.min.js'></script>
   <?php
