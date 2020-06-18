@@ -50,7 +50,7 @@
       <div class="card z-depth-0 bordered">
         <div class="card-header card-header-navbar" id="heading-pages" class="heading-title" data-toggle="collapse" data-target="#collapse-pages" aria-expanded="true" aria-controls="collapse-pages">
           <h6 class="heading-title">
-            <i class="fas fa-chart-bar"></i> <?php echo i8ln('Stats Pages'); ?>
+            <i class="fas fa-chart-bar"></i>&nbsp;&nbsp;<?php echo i8ln('Stats Pages'); ?>
           </h6>
         </div>
         <div id="collapse-pages" class="collapse show" aria-labelledby="heading-pages" data-parent="#accordion-test">
@@ -116,7 +116,7 @@
           <div class="card z-depth-0 bordered">
             <div class="card-header card-header-navbar" id="heading-donate" data-toggle="collapse" data-target="#collapse-other-pages" aria-expanded="false" aria-controls="collapse-other-pages">
               <h6 class="heading-title">
-                <i class="far fa-file"></i> <?php echo i8ln('Other Pages'); ?>
+                <i class="far fa-file"></i>&nbsp;&nbsp;<?php echo i8ln('Other Pages'); ?>
               </h6>
             </div>
             <div id="collapse-other-pages" class="collapse" aria-labelledby="heading-other-pages" data-parent="#accordion-test">
@@ -150,7 +150,7 @@
       <div class="card z-depth-0 bordered">
         <div class="card-header card-header-navbar" id="heading-settings" data-toggle="collapse" data-target="#collapse-settings" aria-expanded="false" aria-controls="collapse-settings">
           <h6 class="heading-title">
-            <i class="fas fa-cog"></i> <?php echo i8ln('Settings'); ?>
+            <i class="fas fa-cog"></i>&nbsp;&nbsp;<?php echo i8ln('Settings'); ?>
           </h6>
         </div>
         <div id="collapse-settings" class="collapse" aria-labelledby="heading-settings" data-parent="#accordion-test">
@@ -215,7 +215,7 @@
           <div class="card z-depth-0 bordered">
             <div class="card-header card-header-navbar" id="heading-user" data-toggle="collapse" data-target="#collapse-user" aria-expanded="false" aria-controls="collapse-user">
               <h6 class="heading-title">
-                <i class="fas fa-user-cog"></i> <?php echo i8ln('User'); ?>
+                <i class="fas fa-user-cog"></i>&nbsp;&nbsp;<?php echo i8ln('User'); ?>
               </h6>
             </div>
             <div id="collapse-user" class="collapse" aria-labelledby="heading-user" data-parent="#accordion-test">
