@@ -3,7 +3,7 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
         <a data-trigger="#navbar_main">
-          <i class="fas fa-bars" style="color:#999c9f;cursor: pointer;"></i>
+          <i class="fas fa-bars nav-icon"></i>
         </a>
       </li>
     </ul>

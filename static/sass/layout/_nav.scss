@@ -1,3 +1,11 @@
+.nav-icon {
+  color:#999c9f;
+  cursor: pointer;
+}
+.nav-icon:hover {
+  color: white !important;
+}
+
 a.dropdown-item:hover {
   background-color: #dadada78;
   background-image: none;
@@ -24,8 +32,6 @@ a.navbar-brand {
   padding: .5rem 1rem;
 }
 
-
-
 .offcanvas-header {
   display: block;
 }
@@ -49,7 +55,6 @@ a.navbar-brand {
   visibility: visible;
 }
 
- 
 .mobile-offcanvas {
   visibility: hidden;
   transform: translateX(-100%);
@@ -76,9 +81,6 @@ a.navbar-brand {
   position: relative;
 }
 
-
-
-
 .card-header-navbar[aria-expanded="false"]:after {
   content: "\f067"; /* fa-plus */
   font-family: 'Font Awesome\ 5 Free';
@@ -98,14 +100,12 @@ a.navbar-brand {
   font-size: 10px;
 }
 
-
 .btn:focus {
   box-shadow: none;
 }
 .dropdown-item:active {
   background-color: #fff;
 }
-
 
 .border {
   border: 1px solid #dfdfdf;
