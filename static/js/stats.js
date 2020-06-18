@@ -99,7 +99,8 @@ if (pokemonPage && getPage === 'pokemon') {
     paging: true,
     searching: true,
     info: true,
-    responsive: true,
+    responsive: false,
+    scrollX: true,
     stateSave: true,
     stateSaveCallback: function (settings, data) {
       localStorage.setItem('DataTables_' + settings.sInstance, JSON.stringify(data))
@@ -148,12 +149,13 @@ if (nestPage && getPage === 'nest') {
   })
 }
 
+initSettings()
+
 if (getPage !== 'pokedex') {
-  initSettings()
   updateStats()
   if (getPage !== 'nest') {
     window.setInterval(updateStats, queryDelay * 1000)
-  } else if (getPage === 'nest') {
+  } else {
     window.setInterval(nestMigrationTimer, 1000)
   }
 }
@@ -239,7 +241,7 @@ function processRaids(i, item) {
     boss,
     item['count'],
     item['percentage']
-  ]).draw(false)
+  ])
 }
 
 function processRewards(i, item) {
@@ -271,7 +273,7 @@ function processRewards(i, item) {
     reward,
     item['count'],
     item['percentage']
-  ]).draw(false)
+  ])
 }
 
 function processShiny(i, item) {
@@ -295,7 +297,7 @@ function processShiny(i, item) {
     item['shiny_count'],
     rate,
     item['sample_size']
-  ]).draw(false)
+  ])
 }
 
 function processInvasions(i, item) {
@@ -304,7 +306,7 @@ function processInvasions(i, item) {
     grunt,
     item['count'],
     item['percentage']
-  ]).draw(false)
+  ])
 }
 
 function processPokemon(i, item) {
@@ -335,7 +337,7 @@ function processPokemon(i, item) {
     pokemon,
     item['count'],
     item['percentage']
-  ]).draw(false)
+  ])
 }
 
 function processNests(i, item) {
@@ -354,12 +356,19 @@ function processNests(i, item) {
     pokemon,
     nestName,
     item['avg']
-  ]).draw(false)
+  ])
 }
 
 function initSettings() {
   if (Store.get('geofence')) {
-    $('#geofence-button').html(Store.get('geofence'))
+    $('#geofence').val(Store.get('geofence'))
+  }
+  if (Store.get('navColor')) {
+    if (Store.get('navColor') === 'dark') {
+      darkMode()
+    } else if (Store.get('navColor') === 'grey') {
+      greyMode()
+    }
   }
 }
 
@@ -372,28 +381,33 @@ function updateStats() {
       $.each(result.spawnpoints, processSpawnpoints)
     }
     if (raidPage && getPage === 'raids') {
-      raidTable.clear().draw()
+      raidTable.clear()
       $.each(result.raids, processRaids)
+      raidTable.draw()
     }
     if (rewardPage && getPage === 'rewards') {
-      rewardTable.clear().draw()
+      rewardTable.clear()
       $.each(result.rewards, processRewards)
+      rewardTable.draw()
     }
     if (shinyPage && getPage === 'shiny') {
-      shinyTable.clear().draw()
+      shinyTable.clear()
       $.each(result.shiny, processShiny)
+      shinyTable.draw()
     }
     if (invasionPage && getPage === 'invasion') {
-      invasionTable.clear().draw()
+      invasionTable.clear()
       $.each(result.invasion, processInvasions)
+      invasionTable.draw()
     }
     if (pokemonPage && getPage === 'pokemon') {
-      pokemonTable.clear().draw(false)
+      pokemonTable.clear()
       $.each(result.pokemon, processPokemon)
+      pokemonTable.draw()
     }
     if (nestPage && getPage === 'nest') {
-      nestTable.clear().draw(false)
       $.each(result.nest, processNests)
+      nestTable.draw()
     }
   })
 }
@@ -456,8 +470,41 @@ function nestMigrationTimer() {
   $('#seconds').html(seconds + '<span>' + i8ln('Seconds') + '</span>')
 }
 
-$(function () {
+function lightMode() {
+  $('nav#navbar_main').removeClass('bg-dark bg-secondary')
+  $('nav#navbar_main').addClass('bg-light')
+  $('div.card-header-navbar').removeClass('bg-dark bg-secondary btn-dark')
+}
+function darkMode() {
+  $('nav#navbar_main').removeClass('bg-light bg-secondary')
+  $('nav#navbar_main').addClass('bg-dark')
+  $('div.card-header-navbar').removeClass('bg-light bg-secondary')
+  $('div.card-header-navbar').addClass('bg-dark btn-dark')
+}
+function greyMode() {
+  $('nav#navbar_main').removeClass('bg-dark bg-light')
+  $('nav#navbar_main').addClass('bg-secondary')
+  $('div.card-header-navbar').removeClass('bg-dark bg-light')
+  $('div.card-header-navbar').addClass('bg-secondary btn-dark')
+}
 
+(function ($) {
+  $.fn.visible = function (partial) {
+    var $t = $(this)
+    var $w = $(window)
+    var viewTop = $w.scrollTop()
+    var viewBottom = viewTop + $w.height()
+    var _top = $t.offset().top
+    var _bottom = _top + $t.height()
+    var compareTop = partial === true ? _bottom : _top
+    var compareBottom = partial === true ? _top : _bottom
+
+    return ((compareBottom <= viewBottom) && (compareTop >= viewTop))
+  }
+})(jQuery)
+
+$(function () {
+  // Geofence
   $('#geofence a').click(function () {
     var geofence = $(this).html()
     $('#geofence-button').html(geofence)
@@ -465,30 +512,73 @@ $(function () {
     updateStats()
   })
 
+  $('#geofence').change(function () {
+    var geofence = this.value
+    Store.set('geofence', geofence)
+    updateStats()
+  })
+
+  // Pokedex
   if (getPage === 'pokedex') {
     if (window.location.hash) {
       var hash = '#' + window.location.hash.charAt(1).toUpperCase() + window.location.hash.slice(2)
-
       $(hash).modal('show')
-
       $('html, body').animate({
         'scrollTop': $(hash + '-col').offset().top
       }, 2000)
-
     }
-    window.onhashchange = function() {
+
+    window.onhashchange = function () {
       $('div.modal').modal('hide')
-
       var hash = '#' + window.location.hash.charAt(1).toUpperCase() + window.location.hash.slice(2)
-
-      setTimeout(function() {
+      setTimeout(function () {
         $(hash).modal('show')
       }, 300)
-
       $('html, body').animate({
         'scrollTop': $(hash + '-col').offset().top
       })
     }
   }
 
+  // SideNav
+  $('[data-trigger]').on('click', function () {
+    var offcanvasId = $(this).attr('data-trigger')
+    $(offcanvasId).toggleClass('show')
+    $('.screen-overlay').toggleClass('show')
+  })
+
+  $('.screen-overlay').click(function () {
+    $('.offcanvas').removeClass('show')
+    $('.screen-overlay').removeClass('show')
+  })
+
+  $(window).on('scroll', function () {
+    if (!$('#header').visible()) {
+      $('.offcanvas').removeClass('show')
+      $('.screen-overlay').removeClass('show')
+    }
+  })
+
+  // Nav Styling
+  $('#color-button-dark').on('click', function () {
+    darkMode()
+    Store.set('navColor', 'dark')
+  })
+
+  $('#color-button-light').on('click', function () {
+    lightMode()
+    Store.set('navColor', 'light')
+  })
+
+  $('#color-button-secondary').on('click', function () {
+    greyMode()
+    Store.set('navColor', 'grey')
+  })
+
+  $('#pokedex-search-input').on('keyup', function () {
+    var value = $(this).val().toLowerCase()
+    $('#pokedex-search-list .pokedex-col').filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    })
+  })
 })

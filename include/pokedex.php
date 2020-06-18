@@ -8,9 +8,28 @@ $family = json_decode($family_json_contents, true);
 $numberOfPokemon = 649;
 ?>
 
-<h2 class="text-center"><?php echo i8ln('Pokédex'); ?></h2>
+
 <div class="container">
-  <div class="row pokedex-row text-center m-0">
+
+  <div class="row">
+    <div class="col">
+      <h2 class="text-center" style="border:1px solid #9a9a9a;">
+        <img src="static/images/pokedex-kanto.png" style="width:70px;height:70px;">
+        <?php echo i8ln('Pokédex'); ?>
+      </h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input class="form-control" id="pokedex-search-input" type="text" placeholder="Search...">
+      </div>
+    </div>
+  </div>
+ 
+  <div class="row pokedex-row text-center m-0" id="pokedex-search-list">
     <?php
       $i = 1;
       foreach ($pokedex as $pokemon) {
@@ -26,7 +45,7 @@ $numberOfPokemon = 649;
               <img src="' . $pokemonIconPath . 'pokemon_icon_' . $id .'_00.png" style="height:60px;">
               <br>' . i8ln($pokemon['name']) . '
             </a>
-          </div><br>';
+          </div>';
 
           $html = '<a href="?page=pokedex#' . i8ln($pokemon['name']) . '"><img src="' . $pokemonIconPath . 'pokemon_icon_' . $id . '_00.png" style="height:60px;"></a>';
 

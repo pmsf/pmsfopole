@@ -5587,16 +5587,12 @@
       },
       {
         "nameform": "Galarian",
-        "protoform": "2335",
+        "protoform": "2338",
         "assetsform": "00",
         "formtypes": [
           {
-            "type": "Normal",
+            "type": "Fighting",
             "color": "#8a8a59"
-          },
-          {
-            "type": "Flying",
-            "color": "#a890f0"
           }
         ]
       }
@@ -27241,7 +27237,7 @@
     ]
   },
   "439":{
-    "name": "Mime-Jr",
+    "name": "Mime Jr.",
     "rarity":"",
     "baseStamina": 85,
     "baseAttack": 125,
