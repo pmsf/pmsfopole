@@ -104,3 +104,15 @@ ul.social-network li {
 .social-network a {
   background-color: #F9F9F9;
 }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: table;
+}
+
+footer {
+  display: table-row;
+  height: 0;
+}

@@ -20,7 +20,16 @@ $numberOfPokemon = 649;
     </div>
   </div>
 
-  <div class="row pokedex-row text-center m-0">
+  <div class="row">
+    <div class="col">
+      <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input class="form-control" id="pokedex-search-input" type="text" placeholder="Search...">
+      </div>
+    </div>
+  </div>
+ 
+  <div class="row pokedex-row text-center m-0" id="pokedex-search-list">
     <?php
       $i = 1;
       foreach ($pokedex as $pokemon) {
@@ -36,7 +45,7 @@ $numberOfPokemon = 649;
               <img src="' . $pokemonIconPath . 'pokemon_icon_' . $id .'_00.png" style="height:60px;">
               <br>' . i8ln($pokemon['name']) . '
             </a>
-          </div><br>';
+          </div>';
 
           $html = '<a href="?page=pokedex#' . i8ln($pokemon['name']) . '"><img src="' . $pokemonIconPath . 'pokemon_icon_' . $id . '_00.png" style="height:60px;"></a>';
 

@@ -574,4 +574,11 @@ $(function () {
     greyMode()
     Store.set('navColor', 'grey')
   })
+
+  $('#pokedex-search-input').on('keyup', function () {
+    var value = $(this).val().toLowerCase()
+    $('#pokedex-search-list .pokedex-col').filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    })
+  })
 })
