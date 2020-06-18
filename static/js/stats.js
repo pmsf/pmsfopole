@@ -531,18 +531,18 @@ $(function () {
   $('[data-trigger]').on('click', function() {
     var offcanvas_id =  $(this).attr('data-trigger')
     $(offcanvas_id).toggleClass('show')
-    //$(".screen-overlay").toggleClass("show")
+    $(".screen-overlay").toggleClass("show")
   })
 
   $('#main').click(function() {
     $('.offcanvas').removeClass('show')
-    //$(".screen-overlay").removeClass("show")
+    $(".screen-overlay").removeClass("show")
   })
 
-  //$(window).on('scroll', function() {
-  //  $('.offcanvas').removeClass('show')
-  //  $(".screen-overlay").removeClass("show")
-  //})
+  $(window).on('scroll', function() {
+    $('.offcanvas').removeClass('show')
+    $(".screen-overlay").removeClass("show")
+  })
 
   // Nav Styling
   $('#color-button-dark').on('click', function() {
