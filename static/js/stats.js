@@ -490,7 +490,6 @@ function greyMode() {
 
 
 $(function () {
-
   // Geofence
   $('#geofence a').click(function () {
     var geofence = $(this).html()
@@ -515,10 +514,10 @@ $(function () {
       }, 2000)
     }
 
-    window.onhashchange = function() {
+    window.onhashchange = function () {
       $('div.modal').modal('hide')
       var hash = '#' + window.location.hash.charAt(1).toUpperCase() + window.location.hash.slice(2)
-      setTimeout(function() {
+      setTimeout(function () {
         $(hash).modal('show')
       }, 300)
       $('html, body').animate({
@@ -528,36 +527,35 @@ $(function () {
   }
 
   // SideNav
-  $('[data-trigger]').on('click', function() {
-    var offcanvas_id =  $(this).attr('data-trigger')
-    $(offcanvas_id).toggleClass('show')
+  $('[data-trigger]').on('click', function () {
+    var offcanvasId =  $(this).attr('data-trigger')
+    $(offcanvasId).toggleClass('show')
     $('.screen-overlay').toggleClass('show')
   })
 
-  $('#main').click(function() {
+  $('#main').click(function () {
     $('.offcanvas').removeClass('show')
     $('.screen-overlay').removeClass('show')
   })
 
-  $(window).on('scroll', function() {
+  $(window).on('scroll', function () {
     $('.offcanvas').removeClass('show')
     $('.screen-overlay').removeClass('show')
   })
 
   // Nav Styling
-  $('#color-button-dark').on('click', function() {
+  $('#color-button-dark').on('click', function () {
     darkMode()
     Store.set('navColor', 'dark')
   })
 
-  $('#color-button-light').on('click', function() {
+  $('#color-button-light').on('click', function () {
     lightMode()
     Store.set('navColor', 'light')
   })
 
-  $('#color-button-secondary').on('click', function() {
+  $('#color-button-secondary').on('click', function () {
     greyMode()
     Store.set('navColor', 'grey')
   })
-
 })
