@@ -81,7 +81,7 @@ if (!empty($_GET['page'])) {
     </main>
     <?php
       /* Include Footer */
-      if ($footer && $enablePage !== 'pokedex') {
+      if ($footer) {
         include('include/footer.php');
       }
     ?>
