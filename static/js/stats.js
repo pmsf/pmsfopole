@@ -4,6 +4,10 @@ var languageLookups = 0
 var languageLookupThreshold = 3
 var rawDataIsLoading = false
 
+if (getPage !== 'overview' && getPage !== 'pokedex';) {
+  $.fn.DataTable.ext.pager.numbers_length = 5; // limit datatables paging buttons. Only odd numbers.
+}
+
 if (raidPage && getPage === 'raids') {
   var raidTable = $('#raidTable').DataTable({
     paging: false,
@@ -403,7 +407,7 @@ function updateStats() {
     if (pokemonPage && getPage === 'pokemon') {
       pokemonTable.clear()
       $.each(result.pokemon, processPokemon)
-      pokemonTable.draw()
+      pokemonTable.draw(false)
     }
     if (nestPage && getPage === 'nest') {
       $.each(result.nest, processNests)

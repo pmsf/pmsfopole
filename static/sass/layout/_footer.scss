@@ -11,7 +11,6 @@ footer a {
   transition-duration: 0.2s;
 }
 
-
 .copy {
   font-size: 12px;
   padding: 10px;
@@ -105,14 +104,13 @@ ul.social-network li {
   background-color: #F9F9F9;
 }
 
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  display: table;
+.flex-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between
 }
 
-footer {
-  display: table-row;
-  height: 0;
+main {
+  flex-grow: 1;
 }

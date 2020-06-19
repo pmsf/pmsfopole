@@ -206,3 +206,4 @@ $numberOfPokemon = 649;
     ?>
   </div>
 </div>
+<br>
