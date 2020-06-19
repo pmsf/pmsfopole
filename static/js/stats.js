@@ -4,7 +4,7 @@ var languageLookups = 0
 var languageLookupThreshold = 3
 var rawDataIsLoading = false
 
-if (getPage !== 'overview' && getPage !== 'pokedex';) {
+if (getPage !== 'overview' && getPage !== 'pokedex') {
   $.fn.DataTable.ext.pager.numbers_length = 5; // limit datatables paging buttons. Only odd numbers.
 }
 
