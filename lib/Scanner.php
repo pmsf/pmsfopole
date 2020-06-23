@@ -14,5 +14,9 @@ class Scanner
 
     $invasion_json_contents = file_get_contents("static/dist/data/grunttype.min.json");
     $this->gruntdex = json_decode($invasion_json_contents, true);
+
+    $moves_json_contents = file_get_contents("static/data/moves.json");
+    $this->move = json_decode($moves_json_contents, true);
+
   }
 }

@@ -48,12 +48,12 @@
     <div class="accordion" id="accordion-test">
 
       <div class="card z-depth-0 bordered">
-        <div class="card-header card-header-navbar" id="heading-pages" class="heading-title" data-toggle="collapse" data-target="#collapse-pages" aria-expanded="true" aria-controls="collapse-pages">
+        <div class="card-header card-header-navbar" id="heading-pages" class="heading-title" data-toggle="collapse" data-target="#collapse-pages" aria-expanded="false" aria-controls="collapse-pages">
           <h6 class="heading-title">
             <i class="fas fa-chart-bar"></i>&nbsp;&nbsp;<?php echo i8ln('Stats Pages'); ?>
           </h6>
         </div>
-        <div id="collapse-pages" class="collapse show" aria-labelledby="heading-pages" data-parent="#accordion-test">
+        <div id="collapse-pages" class="collapse" aria-labelledby="heading-pages" data-parent="#accordion-test">
           <div class="card-body">
     
             <a class="dropdown-item" href=".">
@@ -112,6 +112,32 @@
       </div>
 
 
+
+
+      <div class="card z-depth-0 bordered">
+        <div class="card-header card-header-navbar" id="heading-dashboard" data-toggle="collapse" data-target="#collapse-dashboard" aria-expanded="false" aria-controls="collapse-dashboard">
+          <h6 class="heading-title">
+            <i class="fas fa-tachometer-alt"></i></i>&nbsp;&nbsp;<?php echo i8ln('Dashboard Pages'); ?>
+          </h6>
+        </div>
+        <div id="collapse-dashboard" class="collapse" aria-labelledby="heading-dashboard" data-parent="#accordion-test">
+          <div class="card-body">
+
+            <?php if ($raidPage) { ?>
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="?page=raid_dashboard">
+                <img src="static/images/svg/raidicon.svg" style="width:22px;height:22px;filter:brightness(0%);"> <?php echo i8ln('Raid Dashboard'); ?>
+              </a>
+            <?php } ?>
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
       <?php if ($homeUrl !== '' || $mapUrl !== '') { ?>
           <div class="card z-depth-0 bordered">
             <div class="card-header card-header-navbar" id="heading-donate" data-toggle="collapse" data-target="#collapse-other-pages" aria-expanded="false" aria-controls="collapse-other-pages">
@@ -155,17 +181,18 @@
         </div>
         <div id="collapse-settings" class="collapse" aria-labelledby="heading-settings" data-parent="#accordion-test">
           <div class="card-body">
-
-            <div class="form-group">
-              <label for="geofence"><?php echo i8ln('Select Area'); ?></label>
-              <select class="custom-select" id="geofence">
-                <?php
-                  foreach($geofences as $key => $value) {
-                    echo '<option value="' . $value . '">' . $value . '</a>';
-                  }
-                ?>
-              </select>
-            </div>
+            <?php if ($enablePage !== 'raid_dashboard' && $enablePage !== 'pokedex') { ?>
+              <div class="form-group">
+                <label for="geofence"><?php echo i8ln('Select Area'); ?></label>
+                <select class="custom-select" id="geofence">
+                  <?php
+                    foreach($geofences as $key => $value) {
+                      echo '<option value="' . $value . '">' . $value . '</a>';
+                    }
+                  ?>
+                </select>
+              </div>
+            <?php } ?>
 
             <div>
               <?php echo i8ln('Menu Color'); ?>
