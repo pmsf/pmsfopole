@@ -99,13 +99,6 @@
                 <img src="static/images/svg/shinysparkles.svg" style="width:22px;height:22px;filter:brightness(0%);"> <?php echo i8ln('Shiny Rate'); ?>
               </a>
             <?php } ?>
-
-            <?php if ($nestPage) { ?>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" style="position:relative;left:-3px;" href="?page=nest">
-                <img src="static/images/nest.png" style="width:22px;height:22px;filter:brightness(0%);"> <?php echo i8ln('Nests'); ?>
-              </a>
-            <?php } ?>
     
           </div>
         </div>
@@ -126,6 +119,13 @@
             <?php if ($raidPage) { ?>
               <a class="dropdown-item" style="position:relative;left:-3px;" href="?page=raid_dashboard">
                 <img src="static/images/svg/raidicon.svg" style="width:22px;height:22px;filter:brightness(0%);"> <?php echo i8ln('Raid Dashboard'); ?>
+              </a>
+            <?php } ?>
+
+            <?php if ($nestPage) { ?>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" style="position:relative;left:-3px;" href="?page=nest">
+                <img src="static/images/nest.png" style="width:22px;height:22px;filter:brightness(0%);"> <?php echo i8ln('Nests Dashboard'); ?>
               </a>
             <?php } ?>
 

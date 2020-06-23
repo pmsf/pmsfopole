@@ -61,7 +61,7 @@ if (getPage === 'raid_dashboard') {
     stateDuration: 0,
     language: {
       search: '',
-      searchPlaceholder: 'Search...',
+      searchPlaceholder: i8ln('Search...'),
       emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>',
       info: i8ln('Showing _START_ to _END_ of _TOTAL_ entries'),
       lengthMenu: '_MENU_',
@@ -308,8 +308,8 @@ function processRaidDashboard(i, item) {
   var boss = ''
   var costume = ''
   var ex = ''
-  var moves = 'n/a'
-  var hatch = 'n/a'
+  var moves = i8ln('n/a')
+  var hatch = i8ln('n/a')
 
   var gymColors = ['#999999', '#0051CF', '#FF260E', '#FECC23'] // 'Uncontested', 'Mystic', 'Valor', 'Instinct']
   var color = gymColors[item['team']]

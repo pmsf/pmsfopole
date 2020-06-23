@@ -12,10 +12,10 @@
         </select>
       </div>
       <div class="col">
-        <input id="min-level" class="form-control" placeholder="Min Level" name="min-level" type="number">
+        <input id="min-level" class="form-control" placeholder="<?php echo i8ln('Min Level'); ?>" name="min-level" type="number">
       </div>
       <div class="col">
-        <input id="max-level" class="form-control" placeholder="Max Level" name="max-level" type="number">
+        <input id="max-level" class="form-control" placeholder="<?php echo i8ln('Max Level'); ?>" name="max-level" type="number">
       </div>
     </div>
 

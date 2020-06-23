@@ -72,5 +72,20 @@
   "Stats Pages": "Statystyki",
   "Settings": "Ustawienia",
   "User": "Użytkownik",
-  "Menu Color": "Kolor menu"
+  "Dashboard Pages": "Strony Informacyjne",
+  "Raid Dashboard": "Raidy",
+  "Nests Dashboard": "Nesty",
+  "Menu Color": "Kolor menu",
+  "Show 10 rows": "Pokaż 10 pozycji",
+  "Show 25 rows": "Pokaż 25 pozycji",
+  "Show 50 rows": "Pokaż 50 pozycji",
+  "Show 100 rows": "Pokaż 100 pozycji",
+  "Show all rows": "Pokaż wszystkie pozycje",
+  "Search...": "Szukaj...",
+  "Hatch": "Klucie",
+  "Despawn": "Koniec",
+  "Moves": "Ataki",
+  "n/a": "-",
+  "Min Level": "Min. lvl",
+  "Max Level": "Max. lvl"
 }
