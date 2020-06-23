@@ -68,27 +68,28 @@ if (!empty($_GET['page'])) {
   } ?>
 </head>
 <body>
-  <?php
-    /* Include Nav */
-    include('include/nav.php');
-  ?>
-  <main id="main">
+  <div class="flex-wrapper">
     <?php
-      /* Include Page */
-      include($include);
+      /* Include Nav */
+      include('include/nav.php');
     ?>
-  </main>
-  <?php
-    /* Include Footer */
-    if ($footer) {
-      include('include/footer.php');
-    }
-  ?>
-
+    <main id="main">
+      <?php
+        /* Include Page */
+        include($include);
+      ?>
+    </main>
+    <?php
+      /* Include Footer */
+      if ($footer) {
+        include('include/footer.php');
+      }
+    ?>
+  </div>
   <!-- scripts -->
   <script src='node_modules/jquery/dist/jquery.min.js'></script>
   <?php
-  if ($enablePage !== 'overview') {
+  if ($enablePage !== 'overview' && $enablePage !== 'pokedex') {
     echo '<script src="node_modules/datatables.net/js/jquery.dataTables.min.js"></script>';
     echo '<script src="node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>';
     echo '<script src="node_modules/datatables.net-responsive/js/dataTables.responsive.min.js"></script>';
