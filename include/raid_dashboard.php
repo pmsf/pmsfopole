@@ -1,4 +1,4 @@
-<!--<div class="container">-->
+<div class="container">
   <table id="raidDashboardTable" class="table table-striped table-bordered">
 
     <div class="form-row">
@@ -51,4 +51,4 @@
       </tr>
     </thead>
   </table>
-<!--</div>-->
+</div>
