@@ -201,6 +201,72 @@ class MAD extends Scanner
       return $data;
     }
 
+    public function query_raid_dashboard($selectedGeofence)
+    {
+      global $db, $geofences;
+
+      $geofenceSQL = '';
+      if ($selectedGeofence) {
+        $geofence = array_search($selectedGeofence, $geofences);
+        if ($geofence !== 'All') {
+          $geofenceSQL = " AND (ST_WITHIN(point(gym.latitude, gym.longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
+        }
+      }
+
+      $raids = $db->query("
+        SELECT
+          gym.latitude AS lat,
+          gym.longitude AS lon,
+          gym.team_id,
+          gym.is_ex_raid_ex_raid_eligible AS ex_raid_eligible,
+          gymdetails.name,
+          gymdetails.url,
+          Unix_timestamp(Convert_tz(start, '+00:00', @@global.time_zone)) AS raid_battle_timestamp,
+          Unix_timestamp(Convert_tz(end, '+00:00', @@global.time_zone)) AS raid_end_timestamp,
+          raid.pokemon AS raid_pokemon_id,
+          raid.form AS raid_pokemon_form,
+          raid.costume AS raid_pokemon_costume,
+          raid.level AS raid_level,
+          raid.move_1 AS raid_pokemon_move_1,
+          raid.move_2 AS raid_pokemon_move_2,
+        FROM gym
+        LEFT JOIN gymdetails
+        ON gym.gym_id = gymdetails.gym_id
+        LEFT JOIN raid
+        ON gym.gym_id = raid.gym_id
+        WHERE raid.end >= UTC_TIMESTAMP() AND gymdetails.name is not null $geofenceSQL"
+      );
+
+      $data = array();
+      foreach ($raids as $raid) {
+        $raidboss["raid_pokemon_level"] = $raid["raid_level"];
+        $raidboss["raid_pokemon_id"] = $raid["raid_pokemon_id"];
+        $raidboss["raid_pokemon_form"] = $raid["raid_pokemon_form"];
+        $raidboss["raid_pokemon_costume"] = $raid["raid_pokemon_costume"];
+        $raidboss["gym_name"] = $raid["name"];
+        $raidboss["lat"] = $raid["lat"];
+        $raidboss["lon"] = $raid["lon"];
+        $raidboss["url"] = !empty($raid["url"]) ? preg_replace("/^http:/i", "https:", $raid["url"]) : 'static/images/missing.png';
+        $raidboss["raid_end"] = $raid["raid_end_timestamp"];
+        $raidboss["raid_start"] = $raid["raid_battle_timestamp"];
+        $raidboss["ex_gym"] = $raid["ex_raid_eligible"];
+        $raidboss["team"] = $raid["team_id"];
+
+        if ($raid["raid_pokemon_id"] > 0) {
+          $raidboss["raid_pokemon_name"] = i8ln($this->pokedex[$raid['raid_pokemon_id']]["name"]);
+          $raidboss["raid_pokemon_move_1"] = i8ln($this->move[$raid["raid_pokemon_move_1"]]["name"]);
+          $raidboss["raid_pokemon_move_2"] = i8ln($this->move[$raid["raid_pokemon_move_2"]]["name"]);
+          $raidboss["raid_pokemon_move_1_type"] = $this->move[$raid["raid_pokemon_move_1"]]["type"];
+          $raidboss["raid_pokemon_move_2_type"] = $this->move[$raid["raid_pokemon_move_2"]]["type"];
+        } else {
+          $raidboss["raid_pokemon_name"] = i8ln('lvl') . '-' . $raid['raid_level'] . ' ' . i8ln('egg');
+        }
+
+        $data[] = $raidboss;
+      }
+      return $data;
+    }
+
     public function query_rewards($selectedGeofence)
     {
       global $db, $geofences;
