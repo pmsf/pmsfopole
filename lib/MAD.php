@@ -228,7 +228,7 @@ class MAD extends Scanner
           raid.costume AS raid_pokemon_costume,
           raid.level AS raid_level,
           raid.move_1 AS raid_pokemon_move_1,
-          raid.move_2 AS raid_pokemon_move_2,
+          raid.move_2 AS raid_pokemon_move_2
         FROM gym
         LEFT JOIN gymdetails
         ON gym.gym_id = gymdetails.gym_id
