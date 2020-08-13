@@ -266,20 +266,24 @@ class MAD extends Scanner
       if ($selectedGeofence) {
         $geofence = array_search($selectedGeofence, $geofences);
         if ($geofence !== 'All') {
-          $geofenceSQL = " AND (ST_WITHIN(point(latitude, longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
+          $geofenceSQL = " AND (ST_WITHIN(point(p.latitude, p.longitude), ST_GEOMFROMTEXT('POLYGON(( " . $geofence . " ))')))";
         }
       }
 
       $shinys = $db->query("
         SELECT
-          SUM(shiny) AS shiny_count,
-          pokemon_id,
-          form,
-          costume,
+          SUM(stats.is_shiny) AS shiny_count,
+          p.pokemon_id,
+          p.form,
+          p.costume,
           COUNT(*) AS sample_size
-        FROM pokemon
-        WHERE expire_timestamp > UNIX_TIMESTAMP() - 86400 AND iv IS NOT NULL $geofenceSQL
-        GROUP BY pokemon_id, form, costume
+        FROM pokemon p
+        JOIN trs_stats_detect_mon_raw stats ON stats.encounter_id = p.encounter_id
+        WHERE 
+          p.individual_attack IS NOT NULL AND
+          p.disappear_time >= DATE_SUB(NOW(), INTERVAL 1 DAY)
+          $geofenceSQL
+        GROUP BY p.pokemon_id, p.form, p.costume
         HAVING shiny_count >= 1"
       );
 
