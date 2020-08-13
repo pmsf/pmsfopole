@@ -55,7 +55,7 @@ if (!empty($_GET['page'])) {
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <!-- DataTables CSS -->
   <?php
-  if ($enablePage !== 'overview') {
+  if ($enablePage !== 'overview' && $enablePage !== 'pokedex') {
     echo '<link rel="stylesheet" href="node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css">';
     echo '<link rel="stylesheet" href="node_modules/datatables.net-responsive-dt/css/responsive.dataTables.min.css">';
   } ?>
@@ -68,46 +68,28 @@ if (!empty($_GET['page'])) {
   } ?>
 </head>
 <body>
-  <?php
-    /* Include Nav */
-    include('include/nav.php');
-
-    /* Welcome */
-    if (isset($_SESSION['user']->user)) {
-      $user = explode("#", $_SESSION['user']->user);
-      echo '<h3 class="page-header text-center">' . i8ln('Welcome') . ' ' . $user[0] . '</h3>';
-    }
-  ?>
-  <br>
-
-  <center>
-    <div class="btn-group" id="geofence">
-      <button id="geofence-button" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <?php echo i8ln('Select Area'); ?>
-      </button>
-      <div class="dropdown-menu">
-        <?php
-          foreach($geofences as $key => $value) {
-            echo '<a class="dropdown-item" href="#">' . $value . '</a>';
-          }
-        ?>
-      </div>
-    </div>
-  </center>
-
-  <?php
-    /* Include Page */
-    include($include);
-
-    /* Include Footer */
-    if ($footer) {
-      include('include/footer.php');
-    }
-  ?>
+  <div class="flex-wrapper">
+    <?php
+      /* Include Nav */
+      include('include/nav.php');
+    ?>
+    <main id="main">
+      <?php
+        /* Include Page */
+        include($include);
+      ?>
+    </main>
+    <?php
+      /* Include Footer */
+      if ($footer) {
+        include('include/footer.php');
+      }
+    ?>
+  </div>
   <!-- scripts -->
   <script src='node_modules/jquery/dist/jquery.min.js'></script>
   <?php
-  if ($enablePage !== 'overview') {
+  if ($enablePage !== 'overview' && $enablePage !== 'pokedex') {
     echo '<script src="node_modules/datatables.net/js/jquery.dataTables.min.js"></script>';
     echo '<script src="node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>';
     echo '<script src="node_modules/datatables.net-responsive/js/dataTables.responsive.min.js"></script>';

@@ -1,0 +1,31 @@
+.pokedex-col {
+  min-width: 110px !important;
+  border: 1px solid #9a9a9a;
+  margin: 1px;
+  background-color: #ffe0e01a;
+}
+
+div.pokedex-col:hover {
+  background-color: #48464e29;
+}
+
+.pokedex-row {
+  border: 1px solid #9a9a9a;
+}
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+

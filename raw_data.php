@@ -72,6 +72,11 @@ if ($getPage && $getPage === 'nest') {
   $debug['2_after_nests'] = microtime(true) - $timing['start'];
 }
 
+if ($getPage && $getPage === 'raid_dashboard') {
+  $data['raid_dashboard'] = $scanner->query_raid_dashboard($geofence);
+  $debug['2_after_raid_dashboard'] = microtime(true) - $timing['start'];
+}
+
 refreshCsrfToken();
 $debug['end'] = microtime(true) - $timing['start'];
 
