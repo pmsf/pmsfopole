@@ -17,3 +17,8 @@ td, th {
 .tableIcon {
   height: 60px;
 }
+
+select.custom-select.custom-select-sm.form-control.form-control-sm {
+  position: relative;
+  top: 6px;
+}

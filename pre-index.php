@@ -55,7 +55,7 @@ if (!empty($_GET['page'])) {
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <!-- DataTables CSS -->
   <?php
-  if ($enablePage !== 'overview') {
+  if ($enablePage !== 'overview' && $enablePage !== 'pokedex') {
     echo '<link rel="stylesheet" href="node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css">';
     echo '<link rel="stylesheet" href="node_modules/datatables.net-responsive-dt/css/responsive.dataTables.min.css">';
   } ?>

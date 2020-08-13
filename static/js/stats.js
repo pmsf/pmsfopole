@@ -29,6 +29,50 @@ if (raidPage && getPage === 'raids') {
   })
 }
 
+if (getPage === 'raid_dashboard') {
+  $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+    var min = parseInt($('#min-level').val(), 10)
+    var max = parseInt($('#max-level').val(), 10)
+    var level = parseFloat(data[4]) || 0
+
+    if ((isNaN(min) && isNaN(max)) || (isNaN(min) && level <= max) || (min <= level && isNaN(max)) || (min <= level && level <= max)) {
+      return true
+    }
+    return false
+  })
+
+  var raidDashboardTable = $('#raidDashboardTable').DataTable({
+    paging: true,
+    lengthMenu: [
+      [10, 25, 50, 100, -1],
+      [i8ln('Show 10 rows'), i8ln('Show 25 rows'), i8ln('Show 50 rows'), i8ln('Show 100 rows'), i8ln('Show all rows')]
+    ],
+    searching: true,
+    info: true,
+    responsive: false,
+    scrollX: true,
+    stateSave: true,
+    stateSaveCallback: function (settings, data) {
+      localStorage.setItem('DataTables_' + settings.sInstance, JSON.stringify(data))
+    },
+    stateLoadCallback: function (settings) {
+      return JSON.parse(localStorage.getItem('DataTables_' + settings.sInstance))
+    },
+    stateDuration: 0,
+    language: {
+      search: '',
+      searchPlaceholder: i8ln('Search...'),
+      emptyTable: i8ln('Loading...') + '<i class="fas fa-spinner fa-spin"></i>',
+      info: i8ln('Showing _START_ to _END_ of _TOTAL_ entries'),
+      lengthMenu: '_MENU_',
+      paginate: {
+        next: i8ln('Next'),
+        previous: i8ln('Previous')
+      }
+    }
+  })
+}
+
 if (rewardPage && getPage === 'rewards') {
   var rewardTable = $('#rewardTable').DataTable({
     paging: false,
@@ -240,6 +284,7 @@ function processRaids(i, item) {
   } else {
     boss = '<img src="' + eggIconPath + 'egg' + item['lvl'] + '.png" class="tableIcon"><br>' + item['name']
   }
+
   raidTable.row.add([
     item['lvl'],
     boss,
@@ -247,6 +292,77 @@ function processRaids(i, item) {
     item['percentage']
   ])
 }
+
+function formatTime(timestamp) {
+  var date = new Date(timestamp * 1000)
+  var hours = date.getHours()
+  var minutes = "0" + date.getMinutes()
+  var seconds = "0" + date.getSeconds()
+  var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
+
+  return formattedTime
+}
+
+function processRaidDashboard(i, item) {
+  var despawn = ''
+  var boss = ''
+  var costume = ''
+  var ex = ''
+  var moves = i8ln('n/a')
+  var hatch = i8ln('n/a')
+
+  var gymColors = ['#999999', '#0051CF', '#FF260E', '#FECC23'] // 'Uncontested', 'Mystic', 'Valor', 'Instinct']
+  var color = gymColors[item['team']]
+
+  if (item['raid_pokemon_id'] <= 9) {
+    item['raid_pokemon_id'] = '00' + item['raid_pokemon_id']
+  } else if (item['raid_pokemon_id'] <= 99) {
+    item['raid_pokemon_id'] = '0' + item['raid_pokemon_id']
+  }
+
+  if (item['raid_pokemon_form'] <= 0) {
+    item['raid_pokemon_form'] = '00'
+  }
+
+  if (item['raid_pokemon_costume'] > 0) {
+    costume = '_' + item['raid_pokemon_costume']
+  }
+
+  if (item['ex_gym'] > 0) {
+    ex = '<img src="static/images/ex.png" style="position:absolute;">'
+  }
+
+
+  if (item['raid_pokemon_id'] > 0) {
+    boss = '<img src="' + pokemonIconPath + 'pokemon_icon_' + item['raid_pokemon_id'] + '_' + item['raid_pokemon_form'] + costume + '.png" class="tableIcon"><br>' + item['raid_pokemon_name']
+
+    despawn = formatTime(item['raid_end'])
+
+    moves = '<nobr>' + item['raid_pokemon_move_1'] + ' <img src="static/images/types/' + item['raid_pokemon_move_1_type'] + '.png" style="height:15px;"></nobr>' +
+    '<br><br>' +
+    '<nobr>' + item['raid_pokemon_move_2'] + ' <img src="static/images/types/' + item['raid_pokemon_move_2_type'] + '.png" style="height:15px;"></nobr>'
+  } else {
+    boss = '<img src="' + eggIconPath + 'egg' + item['raid_pokemon_level'] + '.png" class="tableIcon"><br>' + item['raid_pokemon_name']
+
+    hatch = formatTime(item['raid_start'])
+
+    despawn = formatTime(item['raid_end'])
+  }
+
+  var gymName = '<a href="https://maps.google.com/maps?q=' + item['lat'] + ', ' + item['lon'] + '" target="_blank" style="color:#212529;">' + ex +
+  '<img src="' + item['url'] + '" style="height:80px;width:80px;border-radius:50%;border:3px solid ' + color + ';"><br>' + item['gym_name'] +
+  '</a>'
+
+  raidDashboardTable.row.add([
+    gymName,
+    boss,
+    despawn,
+    hatch,
+    item['raid_pokemon_level'],
+    moves
+  ])
+}
+
 
 function processRewards(i, item) {
   if (item['quest_pokemon_id'] <= 9) {
@@ -389,6 +505,11 @@ function updateStats() {
       $.each(result.raids, processRaids)
       raidTable.draw()
     }
+    if (getPage === 'raid_dashboard') {
+      raidDashboardTable.clear()
+      $.each(result.raid_dashboard, processRaidDashboard)
+      raidDashboardTable.draw(false)
+    }
     if (rewardPage && getPage === 'rewards') {
       rewardTable.clear()
       $.each(result.rewards, processRewards)
@@ -509,16 +630,8 @@ function greyMode() {
 
 $(function () {
   // Geofence
-  $('#geofence a').click(function () {
-    var geofence = $(this).html()
-    $('#geofence-button').html(geofence)
-    Store.set('geofence', geofence)
-    updateStats()
-  })
-
   $('#geofence').change(function () {
-    var geofence = this.value
-    Store.set('geofence', geofence)
+    Store.set('geofence', this.value)
     updateStats()
   })
 
@@ -542,6 +655,13 @@ $(function () {
         'scrollTop': $(hash + '-col').offset().top
       })
     }
+
+    $('#pokedex-search-input').on('keyup', function () {
+      var value = $(this).val().toLowerCase()
+      $('#pokedex-search-list .pokedex-col').filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      })
+    })
   }
 
   // SideNav
@@ -579,10 +699,18 @@ $(function () {
     Store.set('navColor', 'grey')
   })
 
-  $('#pokedex-search-input').on('keyup', function () {
-    var value = $(this).val().toLowerCase()
-    $('#pokedex-search-list .pokedex-col').filter(function () {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  if (getPage === 'raid_dashboard') {
+    $('#min-level, #max-level').keyup(function () {
+      raidDashboardTable.draw()
     })
-  })
+    $('#min-level, #max-level').change(function () {
+      raidDashboardTable.draw()
+    })
+
+    $('a.toggle-column').on('click', function (e) {
+      e.preventDefault()
+      var column = raidDashboardTable.column($(this).attr('data-column'))
+      column.visible(!column.visible())
+    })
+  }
 })
