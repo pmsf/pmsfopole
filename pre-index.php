@@ -109,6 +109,7 @@ if (!empty($_GET['page'])) {
     var invasionPage = '<?php echo $invasionPage ?>';
     var shinyPage = '<?php echo $shinyPage ?>';
     var nestPage = '<?php echo $nestPage ?>';
+    var raidDashboardPage = '<?php echo $raidDashboardPage ?>';
     var geofenceDefault = '<?php echo $geofenceDefault ?>';
   </script>
   <script src="static/dist/js/stats.common.min.js"></script>

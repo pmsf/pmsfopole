@@ -58,6 +58,8 @@ $rewardPage = true;
 $invasionPage = true;
 $shinyPage = true;
 
+$raidDashboardPage = true
+
 /* Nest Page */
 $nestPage = true;
 $minNestAvg = 2; // 0 to disable
