@@ -116,7 +116,7 @@
         <div id="collapse-dashboard" class="collapse" aria-labelledby="heading-dashboard" data-parent="#accordion-test">
           <div class="card-body">
 
-            <?php if ($raidPage) { ?>
+            <?php if ($raidDashboardPage) { ?>
               <a class="dropdown-item" style="position:relative;left:-3px;" href="?page=raid_dashboard">
                 <img src="static/images/svg/raidicon.svg" style="width:22px;height:22px;filter:brightness(0%);"> <?php echo i8ln('Raid Dashboard'); ?>
               </a>
