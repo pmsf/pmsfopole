@@ -1,6 +1,6 @@
-<div class="container">
+<?php if ($raidDashboardPage) { ?>
+  <div class="container">
   <table id="raidDashboardTable" class="table table-striped table-bordered">
-
     <div class="form-row">
       <div class="col">
         <select class="custom-select form-control" id="geofence">
@@ -51,4 +51,10 @@
       </tr>
     </thead>
   </table>
-</div>
+  </div>
+<?php } else { ?>
+  <br><center><h1><?php echo i8ln('Access denied.'); ?></h1>
+  <div><img src="static/images/accessdenied.png" style="max-width:45vh"></div><br><br>
+  <br><h4><?php echo i8ln('Redirecting...'); ?> <i class="fas fa-spinner fa-spin"></i></h4></center>
+  <meta http-equiv="refresh" content="2; URL=?overview.php">
+<?php } ?>
