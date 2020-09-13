@@ -273,11 +273,13 @@ class RDM extends Scanner
           COUNT(*) as count,
           quest_item_id, 
           quest_pokemon_id, 
+          json_extract(json_extract(`quest_rewards`,'$[*].info.pokemon_id'),'$[0]') AS quest_energy_pokemon_id,
           json_extract(json_extract(`quest_rewards`,'$[*].info.form_id'),'$[0]') AS quest_pokemon_form,
-          json_extract(json_extract(`quest_rewards`,'$[*].info.amount'),'$[0]') AS quest_reward_amount
+          json_extract(json_extract(`quest_rewards`,'$[*].info.amount'),'$[0]') AS quest_reward_amount,
+          quest_reward_type
         FROM pokestop
         WHERE quest_reward_type IS NOT NULL $geofenceSQL
-        GROUP BY quest_reward_type, quest_item_id, quest_reward_amount, quest_pokemon_id, quest_pokemon_form"
+        GROUP BY quest_reward_type, quest_item_id, quest_reward_amount, quest_pokemon_id, quest_pokemon_form, quest_energy_pokemon_id"
       );
       $total = $db->query("SELECT COUNT(*) AS total FROM pokestop WHERE quest_reward_type IS NOT NULL $geofenceSQL")->fetch();
 
@@ -285,8 +287,10 @@ class RDM extends Scanner
       foreach ($rewards as $reward) {
         $questReward["quest_pokemon_id"] = $reward["quest_pokemon_id"];
         $questReward["quest_pokemon_form"] = $reward["quest_pokemon_form"];
+        $questReward["quest_energy_pokemon_id"] = $reward["quest_energy_pokemon_id"];
         $questReward["quest_item_id"] = $reward["quest_item_id"];
         $questReward["quest_reward_amount"] = $reward["quest_reward_amount"];
+        $questReward["quest_reward_type"] = intval($reward["quest_reward_type"]);
         $questReward["count"] = $reward["count"];
         $questReward["percentage"] = round(100 / $total["total"] * $reward["count"], 3) . '%';
 
@@ -294,6 +298,8 @@ class RDM extends Scanner
           $questReward["name"] = i8ln($this->pokedex[$reward['quest_pokemon_id']]["name"]);
         } elseif ($reward["quest_item_id"] > 0) {
           $questReward["name"] = i8ln($this->itemdex[$reward['quest_item_id']]["name"]);
+        } elseif ($reward["quest_reward_type"] == 12) {
+            $questReward["name"] = $reward["quest_reward_amount"] . ' ' . i8ln($this->pokedex[$reward['quest_energy_pokemon_id']]["name"]) . ' ' . i8ln('Energy');
         } else {
           $questReward["name"] = i8ln('Stardust');
         }
