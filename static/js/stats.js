@@ -375,15 +375,19 @@ function processRewards(i, item) {
   }
   var reward = ''
   var type = ''
-  if (item['quest_pokemon_id'] > 0) {
+  if (item['quest_reward_type'] === 7) {
     reward = '<img src="' + pokemonIconPath + 'pokemon_icon_' + item['quest_pokemon_id'] + '_' + item['quest_pokemon_form'] + '.png" class="tableIcon">' +
     '<br>' + item['name']
     type = i8ln('Pokémon')
-  } else if (item['quest_item_id'] > 0) {
+  } else if (item['quest_reward_type'] === 2) {
     reward = '<img src="' + itemIconPath + 'reward_' + item['quest_item_id'] + '_' + item['quest_reward_amount'] + '.png" class="tableIcon">' +
     '<br>' + item['name']
     type = i8ln('Item')
-  } else {
+  } else if (item['quest_reward_type'] === 12) {
+      reward = '<img src="' + itemIconPath + 'reward_mega_energy_' + item['quest_energy_pokemon_id'] + '.png" class="tableIcon">' +
+      '<br>' + item['name']
+      type = i8ln('Mega Energy')
+  } else if (item['quest_reward_type'] === 3) {
     reward = '<img src="' + itemIconPath + 'reward_stardust_' + item['quest_reward_amount'] + '.png" class="tableIcon">' +
     '<br>' + item['name']
     type = i8ln('Stardust')
